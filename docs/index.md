@@ -1,3 +1,5 @@
 hide: - navigation
 
-![meme](meme.png)
+# Scientific Computing for Physics Students
+
+<!-- ![meme](meme.png) -->
