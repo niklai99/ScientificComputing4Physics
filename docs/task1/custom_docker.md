@@ -50,6 +50,9 @@ The RUN command updates the system and installs essential packages:
 
 Miniconda is installed using the ARM-specific installer script [Miniconda3-latest-Linux-aarch64.sh](https://repo.anaconda.com/miniconda/). This provides a lightweight Python environment that you can be easily extended with additional Python packages.
 
+!!! info 
+    If you need a specific Python version or more libraries installed by default, add them to this Dockerfile or run them inside the container using `conda install <package_name>`.
+
 !!! note
     The Dockerfile creates a `/workspace` directory, sets it as the current working directory, and uses a `VOLUME` instruction to indicate that this directory is intended for persistent storage. When you run the container, you can mount a local directory to `/workspace` so that any data created or modified there is preserved even after the container stops.
 
@@ -76,4 +79,41 @@ Miniconda is installed using the ARM-specific installer script [Miniconda3-lates
     docker run -it -v /path/to/local/workspace:/workspace --name <process_name> alma9
     ```
 
-    This command creates a container (naming it `<process_name>`) from your custom image and mounts your host’s `/path/to/local/workspace` to the container’s `/workspace` volume. Any files you create or modify inside `/workspace` will be stored on your host machine.
+    This command creates a container (naming it `<process_name>`) from your custom image and mounts your host’s `/path/to/local/workspace` to the container’s `/workspace` volume. Any files you create or modify inside `/workspace` will be stored on your host machine. It also works the other way around: any files in `/path/to/local/workspace` will be accessible from inside the container.
+
+
+## Setting up the Miniconda Environment
+
+Once inside the container, you can create and manage Python environments using Miniconda.
+
+1. **Create a New Conda Environment**
+
+    Run the following command to create a new Conda environment named `python_env`:
+
+    ```bash
+    conda create -n python_env python numpy pandas matplotlib scipy
+    ```
+
+    This creates a new environment with the latest versions of Python. It also installs the popular scientific computing libraries NumPy, Pandas, Matplotlib, and SciPy.
+
+2. **Activate the Conda Environment**
+   
+    Activate the environment with:
+
+    ```bash
+    conda activate python_env
+    ```
+
+    The prompt should change to show the active environment.
+
+
+<!-- !!! warning
+
+    You may need to run 
+    
+    ```bash
+    conda init
+    ```
+
+    before activating the environment. This command initializes the shell to use Conda.
+     -->

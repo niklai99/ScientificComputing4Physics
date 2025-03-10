@@ -16,23 +16,22 @@ This guide provides step-by-step instructions to install Docker Desktop on macOS
 
 !!! question "Do you have Rosetta installed?"
 
-    Before we get into the Docker installation, make sure you have Rosetta installed in your machine.
+    Before we get into the Docker installation, make sure you have Rosetta installed on your machine.
     
-    To check whether Rosetta is installed, open a terminal and run 
+    To check whether Rosetta is installed, open a terminal and run:
     
     ```bash
     lsbom -f /Library/Apple/System/Library/Receipts/com.apple.pkg.RosettaUpdateAuto.bom
     ```
     
-    You should see at least three files listed as output of the command. If not, it is likely that Rosetta is not installed. Then, install Rosetta with:
+    You should see at least three files listed as output. If not, it is likely that Rosetta is not installed. Then, install Rosetta with:
     
     ```bash
     softwareupdate --install-rosetta
     ```
 
-    !!! info 
-
-        Rosetta 2 is Apple's dynamic binary translator that enables applications compiled for Intel’s x86_64 architecture to run on Apple Silicon (arm64) devices. While Docker Desktop is largely available as a native ARM application on these systems, some components—such as certain command-line utilities or legacy container images—may still be provided only in x86_64 format (e.g.,  amd64). Installing Rosetta 2 ensures that these non-native binaries are automatically translated and executed correctly, thereby maintaining full compatibility and ensuring a smooth installation and operational experience on your Mac.
+    !!! info
+        **Rosetta 2** is Apple's dynamic binary translator that enables applications compiled for Intel’s x86_64 architecture to run on Apple Silicon (arm64) devices. While Docker Desktop is largely available as a native ARM application on these systems, some components—such as certain command-line utilities or legacy container images—may still be provided only in x86_64 format (e.g., amd64). Installing Rosetta 2 ensures that these non-native binaries are automatically translated and executed correctly, thereby maintaining full compatibility and ensuring a smooth installation and operational experience on your Mac.
 
 
 1. **Download Docker Desktop** 
@@ -170,4 +169,8 @@ exit
 
 Then press <kbd>Enter</kbd>. This command terminates the shell session, which in turn stops the container.
 
-Alternatively, you can press <kbd>control</kbd><kbd>D</kbd> on your keyboard. This shortcut sends an end-of-file (EOF) signal, which also terminates the interactive shell session.
+Alternatively, you can press <kbd>control</kbd>+<kbd>D</kbd> on your keyboard. This shortcut sends an end-of-file (EOF) signal, which also terminates the interactive shell session.
+
+!!! tip 
+    
+    If you want to keep the container running without terminating it, you can detach by pressing <kbd>Ctrl</kbd>+<kbd>P</kbd> followed by <kbd>Ctrl</kbd>+<kbd>Q</kbd>. To reattach later, run: `docker attach <container_id_or_name>` or use `docker exec -it <container_id_or_name> /bin/bash` if you simply want a new shell in a running container.
