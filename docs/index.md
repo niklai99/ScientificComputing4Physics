@@ -1,3 +1,3 @@
-# Letsgoski
+hide: - navigation
 
-sium
+![meme](meme.png)
