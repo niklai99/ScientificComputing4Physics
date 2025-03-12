@@ -127,4 +127,4 @@ int main() {
 
 
 !!! tip 
-    If you want to store these files (both Python and C++ scripts) on your host machine permanently, place them in the shared directory you mounted (e.g., /workspace) so they persist after the container stops.
+    If you want to store these files (both Python and C++ scripts) on your host machine permanently, place them in the shared directory you mounted (e.g., `/workspace`) so they persist after the container stops.

@@ -1,4 +1,5 @@
 site_name: Scientific Computing for Physics Students
+site_url: https://niklai99.github.io/ScientificComputing4Physics
 repo_name: GitHub
 repo_url: https://github.com/niklai99/ScientificComputing4Physics
 # edit_uri: main/docs
@@ -14,7 +15,7 @@ theme:
   name: material
   logo: logo.png
   favicon: logo.png
-  custom_dir: docs/overrides
+  # custom_dir: docs/overrides
   features:
       - content.code.copy
       - navigation.footer
@@ -31,6 +32,9 @@ theme:
 plugins:
     - search
 
+extra:
+  generator: false
+
 extra_css:
   - "mystyle.css"
 
@@ -40,12 +44,11 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 markdown_extensions:
-  # - callouts
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.details
-  - pymdownx.blocks.details
+  # - pymdownx.blocks.details
   - admonition
