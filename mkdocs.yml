@@ -59,7 +59,7 @@ extra:
   generator: false
 
 extra_css:
-  - "mystyle.css"
+  - "stylesheets/mystyle.css"
 
 extra_javascript:
   - javascripts/mathjax.js
