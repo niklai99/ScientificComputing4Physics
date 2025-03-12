@@ -10,7 +10,7 @@ In this section, instead of simply pulling the AlmaLinux9 image, we will create 
 
 Create a file named `Dockerfile.alma9` with the following content:
     
-```dockerfile
+```dockerfile linenums="1" title="Dockerfile.alma9"
 # Use AlmaLinux9 as the base image
 FROM almalinux:9
 

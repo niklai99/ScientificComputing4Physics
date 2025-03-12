@@ -51,7 +51,7 @@ theme:
   # custom_dir: docs/overrides
 
 plugins:
-    - search
+  - search
 
 extra:
   generator: false

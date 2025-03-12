@@ -16,7 +16,7 @@ To ensure that your AlmaLinux9 container works correctly, we will test it with s
 
 Find the Python code in GitHub [here](https://github.com/niklai99/ScientificComputing4Physics/blob/main/task1/test/scalar_prod_python.py).
 
-```python
+```python linenums="1" title="scalar_prod_python.py"
 import os
 import numpy as np
 
@@ -68,7 +68,7 @@ with open(path_to_output, "w") as f:
 
 Find the C++ code in GitHub [here](https://github.com/niklai99/ScientificComputing4Physics/blob/main/task1/test/scalar_prod_cpp.cpp).
 
-```cpp
+```cpp linenums="1" title="scalar_prod_cpp.cpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
