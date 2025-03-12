@@ -21,7 +21,7 @@ theme:
 
   palette: 
     # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: light)"
+    - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: teal
       accent: cyan
@@ -29,7 +29,7 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
     # Palette toggle for light mode
-    - media: "(prefers-color-scheme: dark)"
+    - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
       accent: blue
