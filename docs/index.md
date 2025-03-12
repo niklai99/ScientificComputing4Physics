@@ -1,4 +1,8 @@
-hide: - navigation
+---
+hide:
+  - navigation
+  - footer
+---
 
 # Scientific Computing for Physics Students
 
