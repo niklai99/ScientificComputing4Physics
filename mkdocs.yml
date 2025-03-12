@@ -15,7 +15,24 @@ theme:
   name: material
   logo: logo.png
   favicon: logo.png
-  # custom_dir: docs/overrides
+  palette: 
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: slate
+      primary: teal
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: default
+      primary: teal
+      accent: light blue
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
   features:
       - content.code.copy
       - navigation.footer
@@ -28,6 +45,7 @@ theme:
       - search.highlight
       - search.suggest
       - toc.follow
+  # custom_dir: docs/overrides
 
 plugins:
     - search
