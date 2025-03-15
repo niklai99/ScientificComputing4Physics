@@ -2,20 +2,21 @@
 
 This page demonstrates the matrix multiplication operation in both Python and C++. The function computes
 
-\[
+$$
 C = A \times B \quad \text{with} \quad C_{ij} = \sum_{k=1}^{N} a_{ik} \, b_{kj},
-\]
+$$
 
 for constant matrices where every element of \(A\) equals 3 and every element of \(B\) equals 7.1. Hence, each element of \(C\) is expected to be:
-\[
+
+$$
 n \times (3 \times 7.1) = n \times 21.3.
-\]
+$$
 
 Test suites measure execution time and verify that the resulting matrix is correct.
 
 ---
 
-## Python Implementation
+## Python implementation
 
 ```python linenums="1" title="matrix_mult_python.py"
 import numpy as np
@@ -91,7 +92,7 @@ python test_matrix_mult_python.py
 
 asd
 
-## C++ Implementation
+## C++ implementation
 
 ```cpp linenums="1" title="matrix_mult_cpp.cpp"
 #ifndef MATRIX_MULT_CPP_HPP

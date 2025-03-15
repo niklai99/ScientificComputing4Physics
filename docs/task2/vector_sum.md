@@ -2,15 +2,15 @@
 
 This page demonstrates the vector sum operation in both Python and C++. The function computes the vector sum
 
-\[
+$$
 d = a \cdot x + y,
-\]
+$$
 
 where \(x\) and \(y\) are vectors of dimension \(N\). The test suites measure the execution time and verify that every element equals 7.4.
 
 ---
 
-## Python Implementation
+## Python implementation
 
 ```python linenums="1" title="vector_sum_python.py"
 import numpy as np
@@ -88,7 +88,7 @@ python test_vector_sum_python.py
 
 asd
 
-## C++ Implementation
+## C++ implementation
 
 ```cpp linenums="1" title="vector_sum_cpp.cpp"
 #ifndef VECTOR_SUM_CPP_HPP
