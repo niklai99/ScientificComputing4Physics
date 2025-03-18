@@ -1,4 +1,4 @@
-# Matrix Multiplication Implementation and Testing
+# Matrix Multiplication
 
 This page demonstrates the matrix multiplication operation in both Python and C++. The function computes
 
@@ -6,7 +6,7 @@ $$
 C = A \times B \quad \text{with} \quad C_{ij} = \sum_{k=1}^{N} a_{ik} \, b_{kj},
 $$
 
-for constant matrices where every element of \(A\) equals 3 and every element of \(B\) equals 7.1. Hence, each element of \(C\) is expected to be:
+for constant matrices where every element of \(A\) equals 3 and every element of \(B\) equals the expected value. Hence, each element of \(C\) is expected to be:
 
 $$
 n \times (3 \times 7.1) = n \times 21.3.
@@ -21,29 +21,23 @@ Test suites measure execution time and verify that the resulting matrix is corre
 ```python linenums="1" title="matrix_mult_python.py"
 import numpy as np
 
-def matrix_mult(n: int, a_val: float, b_val: float) -> np.ndarray:
+def matrix_mult(A: np.ndarray, B: np.ndarray) -> np.ndarray:
     """
-    Compute the matrix multiplication C = A * B for constant matrices.
-
-    Each matrix A and B is an n x n matrix where every element of A is set to a_val and
-    every element of B is set to b_val. The standard definition is:
-        C[i, j] = sum_{k=0}^{n-1} A[i, k] * B[k, j].
-
-    Since A and B are constant, every element of C equals:
-        n * (a_val * b_val).
+    Compute the matrix multiplication C = A @ B.
 
     Parameters:
-        n (int): The dimension of the square matrices.
-        a_val (float): The constant value for matrix A.
-        b_val (float): The constant value for matrix B.
+        A (np.ndarray): A matrix of shape (m, n).
+        B (np.ndarray): A matrix of shape (n, p).
 
     Returns:
-        np.ndarray: The resulting n x n matrix C.
+        np.ndarray: The resulting matrix C of shape (m, p).
+
+    Raises:
+        ValueError: If the inner dimensions of A and B do not match.
     """
-    A = np.full((n, n), a_val)
-    B = np.full((n, n), b_val)
-    C = A @ B  # Using numpy's efficient matrix multiplication.
-    return C
+    if A.shape[1] != B.shape[0]:
+        raise ValueError("Inner dimensions of A and B must match.")
+    return A @ B
 ```
 
 ```python linenums="1" title="test_matrix_mult_python.py"
@@ -57,15 +51,19 @@ def run_matrix_mult_test(n: int):
     and verify that each element of C equals n * (a_val * b_val).
 
     Parameters:
-        n (int): The dimension of the matrices.
+        n (int): The dimension of the square matrices.
     """
     a_val = 3.0
     b_val = 7.1
     expected_value = n * (a_val * b_val)  # Each element should equal n * 21.3.
     tolerance = 1e-9
 
+    # Create constant matrices A and B of size (n, n)
+    A = np.full((n, n), a_val)
+    B = np.full((n, n), b_val)
+
     start_time = time.perf_counter()
-    C = matrix_mult(n, a_val, b_val)
+    C = matrix_mult(A, B)
     elapsed_time = time.perf_counter() - start_time
 
     if not np.allclose(C, expected_value, atol=tolerance):
@@ -99,30 +97,45 @@ asd
 #define MATRIX_MULT_CPP_HPP
 
 #include <vector>
+#include <stdexcept>
 #include <cstddef>
 
 /**
- * @brief Compute the matrix multiplication C = A * B for constant matrices.
+ * @brief Compute the matrix multiplication C = A * B.
  *
- * Both A and B are n x n matrices where every element of A is a_val and every element
- * of B is b_val. The standard multiplication is given by:
- *      C[i][j] = sum_{k=0}^{n-1} A[i][k] * B[k][j].
+ * Given two matrices A and B, where A is of size m x n and B is of size n x p,
+ * this function computes the matrix product C of size m x p.
  *
- * Since every element of A is a_val and every element of B is b_val, each element of C
- * is equal to n * (a_val * b_val).
- *
- * @param n The dimension of the square matrices.
- * @param a_val The constant value for matrix A.
- * @param b_val The constant value for matrix B.
+ * @param A The left matrix.
+ * @param B The right matrix.
  * @return std::vector<std::vector<double>> The resulting matrix C.
+ * @throws std::invalid_argument if the number of columns in A does not equal the number of rows in B.
  */
-inline std::vector<std::vector<double>> matrix_mult(std::size_t n, double a_val, double b_val) {
-    std::vector<std::vector<double>> C(n, std::vector<double>(n, 0.0));
-    double product = a_val * b_val;
-    double value = n * product; // Each element should be n * (a_val * b_val).
-    for (std::size_t i = 0; i < n; ++i) {
-        for (std::size_t j = 0; j < n; ++j) {
-            C[i][j] = value;
+inline std::vector<std::vector<double>> matrix_mult(
+    const std::vector<std::vector<double>>& A,
+    const std::vector<std::vector<double>>& B)
+{
+    if (A.empty() || B.empty() || A[0].empty() || B[0].empty()) {
+        throw std::invalid_argument("Matrices must not be empty.");
+    }
+    std::size_t m = A.size();
+    std::size_t n = A[0].size();
+    std::size_t p = B[0].size();
+
+    if (B.size() != n) {
+        throw std::invalid_argument("The number of columns in A must equal the number of rows in B.");
+    }
+    
+    // Initialize C with zeros.
+    std::vector<std::vector<double>> C(m, std::vector<double>(p, 0.0));
+    
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < p; ++j) {
+            double sum = 0.0;
+            for (std::size_t k = 0; k < n; ++k) {
+                sum += A[i][k] * B[k][j];
+            }
+            C[i][j] = sum;
         }
     }
     return C;
@@ -142,19 +155,24 @@ inline std::vector<std::vector<double>> matrix_mult(std::size_t n, double a_val,
 /**
  * @brief Run the matrix multiplication test.
  *
- * Computes C = A * B for matrices of dimension n x n, measures the execution time,
- * and verifies that each element of C equals n * (a_val * b_val) within a small tolerance.
+ * This function creates two constant n x n matrices A and B, measures the execution time
+ * of their multiplication, and verifies that each element of the resulting matrix C equals n * (a_val * b_val)
+ * within a small tolerance.
  *
- * @param n The dimension of the matrices.
+ * @param n The dimension of the square matrices.
  */
 void run_matrix_mult_test(std::size_t n) {
     const double a_val = 3.0;
     const double b_val = 7.1;
-    const double expected_value = n * (a_val * b_val);  // Expected value: n * 21.3.
+    const double expected_value = n * (a_val * b_val);  // Each element should equal n * 21.3.
     const double tolerance = 1e-9;
 
+    // Create constant matrices A and B of size n x n.
+    std::vector<std::vector<double>> A(n, std::vector<double>(n, a_val));
+    std::vector<std::vector<double>> B(n, std::vector<double>(n, b_val));
+
     auto start = std::chrono::high_resolution_clock::now();
-    auto C = matrix_mult(n, a_val, b_val);
+    auto C = matrix_mult(A, B);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 

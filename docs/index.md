@@ -6,7 +6,7 @@ hide:
 
 # Scientific Computing for Physics Students
 
-This page serves as a central hub for all homework assignments (tasks) given throughout the course. Each task can be accessed from the **[Task Section](#homework--task-overview)** below, or from the navigation bar at the top-left of the webpage, beneath the course title. Within each task, you will find multiple pages dedicated to different sub-tasks, each providing a step-by-step explanation and the rationale behind every choice.
+This page serves as a central hub for all homework assignments (tasks) given throughout the course. Each task can be accessed from the **[Task Section](#homework--task-overview)** below, or from the navigation bar at the top-left of the webpage, beneath the course title. Within each task, you will find multiple pages dedicated to different sub-tasks.
 
 !!! warning
     This webpage is actively maintained and updated as the course progresses. **Currently, only Task 1 is fully documented.** More tasks will appear in the future.
