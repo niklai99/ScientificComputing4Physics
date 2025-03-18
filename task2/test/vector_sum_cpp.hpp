@@ -2,27 +2,30 @@
 #define VECTOR_SUM_CPP_HPP
 
 #include <vector>
+#include <stdexcept>
 #include <cstddef>
 
 /**
  * @brief Compute the vector sum d = a * x + y.
  *
- * This function creates two vectors of length n where every element of x is set to x_val and every element
- * of y is set to y_val. It then computes the result as:
- *     d[i] = a * x_val + y_val, for i = 0 to n-1.
+ * This function accepts a scalar and two input vectors, and writes the result into
+ * the output vector d. It checks that the two input vectors have the same size;
+ * if not, it throws an exception. The output vector d is resized to match the input vectors.
  *
- * @param a      Scalar multiplier.
- * @param x_val  Constant value to fill vector x.
- * @param y_val  Constant value to fill vector y.
- * @param n      Dimension of the vectors.
- * @return std::vector<double> The resulting vector d.
+ * @param a   Scalar multiplier.
+ * @param x   Vector x.
+ * @param y   Vector y.
+ * @param d   Output vector to store the result.
+ * @throws std::invalid_argument if the sizes of x and y are not equal.
  */
-inline std::vector<double> vector_sum(double a, double x_val, double y_val, std::size_t n) {
-    std::vector<double> d(n);
-    for (std::size_t i = 0; i < n; ++i) {
-        d[i] = a * x_val + y_val;
+inline void vector_sum(double a, const std::vector<double>& x, const std::vector<double>& y, std::vector<double>& d) {
+    if (x.size() != y.size()) {
+        throw std::invalid_argument("Vectors x and y must have the same size.");
     }
-    return d;
+    d.resize(x.size());
+    for (std::size_t i = 0; i < x.size(); ++i) {
+        d[i] = a * x[i] + y[i];
+    }
 }
 
 #endif // VECTOR_SUM_CPP_HPP

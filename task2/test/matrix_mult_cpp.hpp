@@ -2,30 +2,45 @@
 #define MATRIX_MULT_CPP_HPP
 
 #include <vector>
+#include <stdexcept>
 #include <cstddef>
 
 /**
- * @brief Compute the matrix multiplication C = A * B for constant matrices.
+ * @brief Compute the matrix multiplication C = A * B.
  *
- * Both A and B are n x n matrices where every element of A is a_val and every element
- * of B is b_val. The standard multiplication is given by:
- *      C[i][j] = sum_{k=0}^{n-1} A[i][k] * B[k][j].
+ * Given two matrices A and B, where A is of size m x n and B is of size n x p,
+ * this function computes the matrix product C of size m x p.
  *
- * Since every element of A is a_val and every element of B is b_val, each element of C
- * is equal to n * (a_val * b_val).
- *
- * @param n The dimension of the square matrices.
- * @param a_val The constant value for matrix A.
- * @param b_val The constant value for matrix B.
+ * @param A The left matrix.
+ * @param B The right matrix.
  * @return std::vector<std::vector<double>> The resulting matrix C.
+ * @throws std::invalid_argument if the number of columns in A does not equal the number of rows in B.
  */
-inline std::vector<std::vector<double>> matrix_mult(std::size_t n, double a_val, double b_val) {
-    std::vector<std::vector<double>> C(n, std::vector<double>(n, 0.0));
-    double product = a_val * b_val;
-    double value = n * product; // Each element should be n * (a_val * b_val).
-    for (std::size_t i = 0; i < n; ++i) {
-        for (std::size_t j = 0; j < n; ++j) {
-            C[i][j] = value;
+inline std::vector<std::vector<double>> matrix_mult(
+    const std::vector<std::vector<double>>& A,
+    const std::vector<std::vector<double>>& B)
+{
+    if (A.empty() || B.empty() || A[0].empty() || B[0].empty()) {
+        throw std::invalid_argument("Matrices must not be empty.");
+    }
+    std::size_t m = A.size();
+    std::size_t n = A[0].size();
+    std::size_t p = B[0].size();
+
+    if (B.size() != n) {
+        throw std::invalid_argument("The number of columns in A must equal the number of rows in B.");
+    }
+    
+    // Initialize C with zeros.
+    std::vector<std::vector<double>> C(m, std::vector<double>(p, 0.0));
+    
+    for (std::size_t i = 0; i < m; ++i) {
+        for (std::size_t j = 0; j < p; ++j) {
+            double sum = 0.0;
+            for (std::size_t k = 0; k < n; ++k) {
+                sum += A[i][k] * B[k][j];
+            }
+            C[i][j] = sum;
         }
     }
     return C;
