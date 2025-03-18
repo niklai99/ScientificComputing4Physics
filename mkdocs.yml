@@ -14,6 +14,7 @@ nav:
     - "Introduction to Task 2": task2/intro.md
     - "Vector Sum": task2/vector_sum.md
     - "Matrix Multiplication": task2/matrix_mult.md
+    - "Questions regarding Task 2": task2/questions.md
 
 theme:
   name: material
