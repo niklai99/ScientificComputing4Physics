@@ -318,4 +318,18 @@ int main() {
 
 ## Discussion
 
+The plot below compares the average execution times (with RMS error bars) for the vector sum operation across three implementations.
+
 ![vector_sum_performance](./fig/vector_sum_performance.png)
+
+- **Python (using NumPy)**: 
+
+    NumPy leverages highly optimized, vectorized operations that are implemented in low-level C libraries. This means that for large vector sizes, the heavy arithmetic is executed very efficiently on the hardware. However, for very small vectors (e.g., $N=10$), the overhead of entering the NumPy routines and the Python interpreter dominates, resulting in slightly slower performance compared to optimized C++ loops.
+
+- **C++ (without optimization flags)**: 
+
+    The unoptimized C++ code uses a simple loop that incurs minimal overhead for small vectors, which is why it achieves extremely low execution times for $N=10$. As the vector size increases, however, the lack of auto-vectorization and other low-level optimizations causes its performance to degrade. In addition, the use of `std::vector` for dynamic memory allocation is necessary for such large arrays (since the stack cannot hold $10^8$ `double` elements), and the overhead associated with heap allocation becomes more apparent at larger scales.
+
+- **C++ (with optimization flags)**: 
+
+    When compiled with aggressive optimization (e.g., `-O3`), the C++ code benefits from auto-vectorization, function inlining, loop unrolling, and other advanced optimizations. These optimizations drastically reduce the loop overhead and improve memory access patterns. As a result, the optimized C++ implementation is the best performer across all vector sizes—even for large $N$—by combining minimal overhead for small vectors with excellent scalability for large vectors.
