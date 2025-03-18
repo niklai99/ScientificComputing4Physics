@@ -272,7 +272,6 @@ int main() {
         ```
 
 
-
 ### Results
 
 === "Without optimization flags"

@@ -6,13 +6,9 @@ $$
 C = A \times B \quad \text{with} \quad C_{ij} = \sum_{k=1}^{N} a_{ik} \, b_{kj},
 $$
 
-for constant matrices where every element of \(A\) equals 3 and every element of \(B\) equals the expected value. Hence, each element of \(C\) is expected to be:
+where $A$ is an $m \times n$ matrix, $B$ is an $n \times p$ matrix, and $C$ is the resulting $m \times p$ matrix.
 
-$$
-n \times (3 \times 7.1) = n \times 21.3.
-$$
-
-Test suites measure execution time and verify that the resulting matrix is correct.
+Test suites measure execution time and verify that the resulting matrix is correct. For simplicity, the matrices $A$ and $B$ square matrices with constant values.
 
 ---
 
@@ -42,39 +38,56 @@ def matrix_mult(A: np.ndarray, B: np.ndarray) -> np.ndarray:
 
 ```python linenums="1" title="test_matrix_mult_python.py"
 import time
+import math
 import numpy as np
 from matrix_mult_python import matrix_mult
 
-def run_matrix_mult_test(n: int):
+def run_matrix_mult_test(n: int, n_iter: int = 1):
     """
-    Run the matrix multiplication for n x n matrices, measure the execution time,
-    and verify that each element of C equals n * (a_val * b_val).
+    Run the matrix multiplication for n x n matrices, measure the execution time
+    over n_iter iterations, and verify that each element of C equals n * (a_val * b_val).
 
     Parameters:
         n (int): The dimension of the square matrices.
+        n_iter (int): The number of iterations for timing measurement (default is 1).
+
+    Raises:
+        AssertionError: If any element of the computed matrix does not match the expected value.
     """
     a_val = 3.0
     b_val = 7.1
-    expected_value = n * (a_val * b_val)  # Each element should equal n * 21.3.
-    tolerance = 1e-9
+    expected_value = n * (a_val * b_val)  # Each element should equal n * (a_val * b_val).
+    tolerance = 1e-7
 
     # Create constant matrices A and B of size (n, n)
     A = np.full((n, n), a_val)
     B = np.full((n, n), b_val)
-
-    start_time = time.perf_counter()
-    C = matrix_mult(A, B)
-    elapsed_time = time.perf_counter() - start_time
-
-    if not np.allclose(C, expected_value, atol=tolerance):
-        raise AssertionError(f"Test failed for n = {n}")
-
-    print(f"Test passed for n = {n} in {elapsed_time:.6f} seconds.")
+    
+    times = []
+    for i in range(n_iter):
+        start_time = time.perf_counter()
+        C = matrix_mult(A, B)
+        elapsed_time = time.perf_counter() - start_time
+        times.append(elapsed_time)
+        
+        if not np.allclose(C, expected_value, atol=tolerance):
+            raise AssertionError(f"Test failed for n = {n} on iteration {i+1}")
+    
+    avg_time = sum(times) / n_iter
+    rms_time = math.sqrt(sum((t - avg_time) ** 2 for t in times) / n_iter)
+    min_time = min(times)
+    max_time = max(times)
+    
+    print(f"Test passed for n = {n} over {n_iter} iterations:")
+    print(f"  Average time: {avg_time:.6f} seconds")
+    print(f"  RMS: {rms_time:.6f} seconds")
+    print(f"  Min time: {min_time:.6f} seconds")
+    print(f"  Max time: {max_time:.6f} seconds")
 
 def main():
-    run_matrix_mult_test(10)
-    run_matrix_mult_test(100)
-    run_matrix_mult_test(10000)
+    run_matrix_mult_test(10, n_iter=100)
+    run_matrix_mult_test(100, n_iter=100)
+    run_matrix_mult_test(10000, n_iter=10)
 
 if __name__ == '__main__':
     main()
@@ -88,7 +101,23 @@ python test_matrix_mult_python.py
 
 ### Results
 
-asd
+```
+Test passed for n = 10 over 100000 iterations:
+  Average time: 1.49e-06 seconds
+  RMS: 3.03e-06 seconds
+  Min time: 1.33e-06 seconds
+  Max time: 9.42e-04 seconds
+Test passed for n = 100 over 100000 iterations:
+  Average time: 6.31e-05 seconds
+  RMS: 3.19e-04 seconds
+  Min time: 3.75e-05 seconds
+  Max time: 4.70e-02 seconds
+Test passed for n = 10000 over 10 iterations:
+  Average time: 9.293362 seconds
+  RMS: 0.729940 seconds
+  Min time: 8.384377 seconds
+  Max time: 10.786640 seconds
+```
 
 ## C++ implementation
 
@@ -99,46 +128,47 @@ asd
 #include <vector>
 #include <stdexcept>
 #include <cstddef>
+#include <cassert>
 
 /**
  * @brief Compute the matrix multiplication C = A * B.
  *
- * Given two matrices A and B, where A is of size m x n and B is of size n x p,
- * this function computes the matrix product C of size m x p.
+ * Matrices are represented as a single contiguous vector in row-major order.
+ * Given matrix A of dimensions m x n and matrix B of dimensions n x p,
+ * this function computes the product C (of dimensions m x p) and stores it in C_out.
+ * The output vector C_out is resized accordingly.
  *
- * @param A The left matrix.
- * @param B The right matrix.
- * @return std::vector<std::vector<double>> The resulting matrix C.
- * @throws std::invalid_argument if the number of columns in A does not equal the number of rows in B.
+ * @param A The left matrix (m x n), stored in row-major order.
+ * @param B The right matrix (n x p), stored in row-major order.
+ * @param C_out Output matrix (m x p), stored in row-major order.
+ * @param m Number of rows in A.
+ * @param n Number of columns in A (and rows in B).
+ * @param p Number of columns in B.
+ * @throws std::invalid_argument if the dimensions of A or B are inconsistent.
  */
-inline std::vector<std::vector<double>> matrix_mult(
-    const std::vector<std::vector<double>>& A,
-    const std::vector<std::vector<double>>& B)
+inline void matrix_mult(const std::vector<double>& A,
+                        const std::vector<double>& B,
+                        std::vector<double>& C_out,
+                        std::size_t m,
+                        std::size_t n,
+                        std::size_t p)
 {
-    if (A.empty() || B.empty() || A[0].empty() || B[0].empty()) {
-        throw std::invalid_argument("Matrices must not be empty.");
-    }
-    std::size_t m = A.size();
-    std::size_t n = A[0].size();
-    std::size_t p = B[0].size();
-
-    if (B.size() != n) {
-        throw std::invalid_argument("The number of columns in A must equal the number of rows in B.");
+    if (A.size() != m * n || B.size() != n * p) {
+        throw std::invalid_argument("Matrix dimensions do not match the provided sizes.");
     }
     
-    // Initialize C with zeros.
-    std::vector<std::vector<double>> C(m, std::vector<double>(p, 0.0));
+    // Resize output vector to hold the result (m x p) and initialize with zeros.
+    C_out.assign(m * p, 0.0);
     
+    // Use loop reordering to improve cache locality.
     for (std::size_t i = 0; i < m; ++i) {
-        for (std::size_t j = 0; j < p; ++j) {
-            double sum = 0.0;
-            for (std::size_t k = 0; k < n; ++k) {
-                sum += A[i][k] * B[k][j];
+        for (std::size_t k = 0; k < n; ++k) {
+            double a_ik = A[i * n + k];
+            for (std::size_t j = 0; j < p; ++j) {
+                C_out[i * p + j] += a_ik * B[k * p + j];
             }
-            C[i][j] = sum;
         }
     }
-    return C;
 }
 
 #endif // MATRIX_MULT_CPP_HPP
@@ -151,61 +181,147 @@ inline std::vector<std::vector<double>> matrix_mult(
 #include <vector>
 #include <cassert>
 #include <cmath>
+#include <numeric>    // For std::accumulate
+#include <algorithm>  // For std::min_element and std::max_element
 
 /**
  * @brief Run the matrix multiplication test.
  *
- * This function creates two constant n x n matrices A and B, measures the execution time
- * of their multiplication, and verifies that each element of the resulting matrix C equals n * (a_val * b_val)
- * within a small tolerance.
+ * This function creates two constant n x n matrices A and B (stored as contiguous vectors),
+ * measures the execution time of their multiplication over n_iter iterations, and verifies that
+ * each element of the resulting matrix equals n * (a_val * b_val) within a small tolerance.
  *
  * @param n The dimension of the square matrices.
+ * @param n_iter The number of iterations for timing measurement.
  */
-void run_matrix_mult_test(std::size_t n) {
+void run_matrix_mult_test(std::size_t n, int n_iter = 1) {
     const double a_val = 3.0;
     const double b_val = 7.1;
-    const double expected_value = n * (a_val * b_val);  // Each element should equal n * 21.3.
-    const double tolerance = 1e-9;
-
-    // Create constant matrices A and B of size n x n.
-    std::vector<std::vector<double>> A(n, std::vector<double>(n, a_val));
-    std::vector<std::vector<double>> B(n, std::vector<double>(n, b_val));
-
-    auto start = std::chrono::high_resolution_clock::now();
-    auto C = matrix_mult(A, B);
-    auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed = end - start;
-
-    for (std::size_t i = 0; i < C.size(); ++i) {
-        for (std::size_t j = 0; j < C[i].size(); ++j) {
-            assert(std::fabs(C[i][j] - expected_value) < tolerance && "Element does not match expected value.");
+    const double expected_value = n * (a_val * b_val);  // Expected value: n * (a_val * b_val)
+    const double tolerance = 1e-7;
+    
+    // Create matrices A and B as contiguous vectors in row-major order.
+    std::vector<double> A(n * n, a_val);
+    std::vector<double> B(n * n, b_val);
+    
+    // Pre-allocate the output matrix to be reused.
+    std::vector<double> C; 
+    std::vector<double> times;
+    times.reserve(n_iter);
+    
+    for (int iter = 0; iter < n_iter; ++iter) {
+        auto start = std::chrono::high_resolution_clock::now();
+        matrix_mult(A, B, C, n, n, n);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+        times.push_back(elapsed.count());
+        
+        // Verify that each element in C is as expected.
+        for (const auto& v : C) {
+            assert(std::fabs(v - expected_value) < tolerance && "Element does not match expected value.");
         }
     }
-    std::cout << "Test passed for n = " << n << " in " << elapsed.count() << " seconds." << std::endl;
+    
+    // Compute statistics: average, RMS, minimum, and maximum times.
+    double sum = std::accumulate(times.begin(), times.end(), 0.0);
+    double avg_time = sum / n_iter;
+    
+    double sq_sum = 0.0;
+    for (double t : times) {
+        sq_sum += (t - avg_time) * (t - avg_time);
+    }
+    double rms_time = std::sqrt(sq_sum / n_iter);
+    
+    double min_time = *std::min_element(times.begin(), times.end());
+    double max_time = *std::max_element(times.begin(), times.end());
+    
+    std::cout << "Test passed for n = " << n << " over " << n_iter << " iterations:" << std::endl;
+    std::cout << "  Average time: " << avg_time << " seconds" << std::endl;
+    std::cout << "  RMS: " << rms_time << " seconds" << std::endl;
+    std::cout << "  Min time: " << min_time << " seconds" << std::endl;
+    std::cout << "  Max time: " << max_time << " seconds" << std::endl;
 }
 
 int main() {
-    run_matrix_mult_test(10);
-    run_matrix_mult_test(100);
-    run_matrix_mult_test(10000);
+    // Run tests for different matrix sizes.
+    run_matrix_mult_test(10, 100);
+    run_matrix_mult_test(100, 100);
+    run_matrix_mult_test(10000, 5);
     return 0;
 }
 ```
 
 ### Compile and run the C++ tests
 
-1. Compile the C++ code:
+=== "Without optimization flags"
 
-    ```bash
-    g++ -std=c++11 test_matrix_mult_cpp.cpp -o test_matrix_mult_cpp
-    ```
+    1. Compile the C++ code:
 
-2. Run the executable:
+        ```bash
+        g++ -O0 -std=c++11 test_matrix_mult_cpp.cpp -o test_matrix_mult_cpp
+        ```
 
-    ```bash
-    ./test_matrix_mult_cpp
-    ```
+    2. Run the executable:
+
+        ```bash
+        ./test_vector_sum_cpp
+        ```
+
+=== "With optimization flags"
+
+    1. Compile the C++ code:
+
+        ```bash
+        g++ -O3 -std=c++11 test_matrix_mult_cpp.cpp -o test_matrix_mult_cpp
+        ```
+    
+    2. Run the executable:
+
+        ```bash
+        ./test_vector_sum_cpp
+        ```
 
 ### Results
 
-asd
+=== "Without optimization flags"
+
+    ```
+    Test passed for n = 10 over 100000 iterations:
+      Average time: 3.29334e-06 seconds
+      RMS: 8.93811e-07 seconds
+      Min time: 3e-06 seconds
+      Max time: 5.75e-05 seconds
+    Test passed for n = 100 over 100000 iterations:
+      Average time: 0.00281444 seconds
+      RMS: 0.000374047 seconds
+      Min time: 0.00254553 seconds
+      Max time: 0.0354478 seconds
+    ```
+
+=== "With optimization flags"
+
+    ```
+    Test passed for n = 10 over 100000 iterations:
+      Average time: 3.67979e-07 seconds
+      RMS: 3.14219e-07 seconds
+      Min time: 2.08e-07 seconds
+      Max time: 3.9334e-05 seconds
+    Test passed for n = 100 over 100000 iterations:
+      Average time: 0.000100926 seconds
+      RMS: 4.28775e-05 seconds
+      Min time: 9.5166e-05 seconds
+      Max time: 0.010053 seconds
+    Test passed for n = 10000 over 5 iterations:
+      Average time: 216.812 seconds
+      RMS: 0.961168 seconds
+      Min time: 215.852 seconds
+      Max time: 218.019 seconds
+    ```
+
+
+## Discussion
+
+The plot below compares the average execution times (with RMS error bars) for the matrix multiplication operation across three implementations.
+
+![matrix_mult_performance](./fig/matrix_mult_performance.png)
+
