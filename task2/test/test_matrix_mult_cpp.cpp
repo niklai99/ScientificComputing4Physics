@@ -8,19 +8,24 @@
 /**
  * @brief Run the matrix multiplication test.
  *
- * Computes C = A * B for matrices of dimension n x n, measures the execution time,
- * and verifies that each element of C equals n * (a_val * b_val) within a small tolerance.
+ * This function creates two constant n x n matrices A and B, measures the execution time
+ * of their multiplication, and verifies that each element of the resulting matrix C equals n * (a_val * b_val)
+ * within a small tolerance.
  *
- * @param n The dimension of the matrices.
+ * @param n The dimension of the square matrices.
  */
 void run_matrix_mult_test(std::size_t n) {
     const double a_val = 3.0;
     const double b_val = 7.1;
-    const double expected_value = n * (a_val * b_val);  // Expected value: n * 21.3.
+    const double expected_value = n * (a_val * b_val);  // Each element should equal n * 21.3.
     const double tolerance = 1e-9;
 
+    // Create constant matrices A and B of size n x n.
+    std::vector<std::vector<double>> A(n, std::vector<double>(n, a_val));
+    std::vector<std::vector<double>> B(n, std::vector<double>(n, b_val));
+
     auto start = std::chrono::high_resolution_clock::now();
-    auto C = matrix_mult(n, a_val, b_val);
+    auto C = matrix_mult(A, B);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 

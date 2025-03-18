@@ -1,25 +1,19 @@
 import numpy as np
 
-def matrix_mult(n: int, a_val: float, b_val: float) -> np.ndarray:
+def matrix_mult(A: np.ndarray, B: np.ndarray) -> np.ndarray:
     """
-    Compute the matrix multiplication C = A * B for constant matrices.
-
-    Each matrix A and B is an n x n matrix where every element of A is set to a_val and
-    every element of B is set to b_val. The standard definition is:
-        C[i, j] = sum_{k=0}^{n-1} A[i, k] * B[k, j].
-
-    Since A and B are constant, every element of C equals:
-        n * (a_val * b_val).
+    Compute the matrix multiplication C = A @ B.
 
     Parameters:
-        n (int): The dimension of the square matrices.
-        a_val (float): The constant value for matrix A.
-        b_val (float): The constant value for matrix B.
+        A (np.ndarray): A matrix of shape (m, n).
+        B (np.ndarray): A matrix of shape (n, p).
 
     Returns:
-        np.ndarray: The resulting n x n matrix C.
+        np.ndarray: The resulting matrix C of shape (m, p).
+
+    Raises:
+        ValueError: If the inner dimensions of A and B do not match.
     """
-    A = np.full((n, n), a_val)
-    B = np.full((n, n), b_val)
-    C = A @ B  # Using numpy's efficient matrix multiplication.
-    return C
+    if A.shape[1] != B.shape[0]:
+        raise ValueError("Inner dimensions of A and B must match.")
+    return A @ B

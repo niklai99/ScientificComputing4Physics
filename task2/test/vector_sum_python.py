@@ -1,18 +1,20 @@
 import numpy as np
 
-def vector_sum(a: float, x_val: float, y_val: float, n: int) -> np.ndarray:
+def vector_sum(a: float, x: np.ndarray, y: np.ndarray) -> np.ndarray:
     """
-    Compute the vector sum d = a * x + y, where x and y are vectors of length n.
+    Compute the vector sum d = a * x + y, where x and y are vectors.
 
     Parameters:
         a (float): Scalar multiplier.
-        x_val (float): Value to fill vector x.
-        y_val (float): Value to fill vector y.
-        n (int): Dimension of the vectors.
+        x (np.ndarray): A vector.
+        y (np.ndarray): A vector.
 
     Returns:
         np.ndarray: The resulting vector d.
+
+    Raises:
+        ValueError: If x and y do not have the same shape.
     """
-    x = np.full(n, x_val)
-    y = np.full(n, y_val)
+    if x.shape != y.shape:
+        raise ValueError("Vectors x and y must have the same shape.")
     return a * x + y
