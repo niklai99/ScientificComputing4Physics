@@ -9,7 +9,7 @@ hide:
 This page serves as a central hub for all homework assignments (tasks) given throughout the course. Each task can be accessed from the **[Task Section](#homework--task-overview)** below, or from the navigation bar at the top-left of the webpage, beneath the course title. Within each task, you will find multiple pages dedicated to different sub-tasks.
 
 !!! warning
-    This webpage is actively maintained and updated as the course progresses. **Currently, only Task 1 is fully documented.** More tasks will appear in the future.
+    This webpage is actively maintained and updated as the course progresses. **Currently, only Task 1 and Task 2 are fully documented.** More tasks will appear in the future.
 
 
 ## Contact Information
@@ -138,5 +138,10 @@ Below are links to the tasks (micro-projects) completed throughout the course:
     - [Docker Installation and AlmaLinux9 setup](task1/install_docker.md)  
     - [AlmaLinux9 setup for Python and C/C++ development](task1/custom_docker.md)  
     - [Testing the AlmaLinux9 container with Python and C++ code](task1/test_py_cpp.md)
+- **Task 2:** 
+    - [Introduction to Task 2](task2/intro.md)
+    - [Vector Sum](task2/vector_sum.md)
+    - [Matrix Multiplication](task2/matrix_mult.md)
+    - [Questions Regarding Task 2](task2/questions.md)
 
 Future tasks will be added here as the course progresses. 

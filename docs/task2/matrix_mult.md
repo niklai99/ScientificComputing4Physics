@@ -6,9 +6,9 @@ $$
 C = A \times B \quad \text{with} \quad C_{ij} = \sum_{k=1}^{N} a_{ik} \, b_{kj},
 $$
 
-where $A$ is an $m \times n$ matrix, $B$ is an $n \times p$ matrix, and $C$ is the resulting $m \times p$ matrix.
+where $A$ and $B$ are both $N \times N$ matrices, and $C$ is the resulting $N \times N$ matrix. The matrix multiplication operation is nevertheless implemented in its general form, where the dimensions of $A$ and $B$ are $m \times n$ and $n \times p$, respectively. The function raises an exception if the inner dimensions of $A$ and $B$ do not match.
 
-Test suites measure execution time and verify that the resulting matrix is correct. For simplicity, the matrices $A$ and $B$ square matrices with constant values.
+Test suites measure execution time and verify that the resulting matrix is correct. 
 
 ---
 
@@ -85,8 +85,8 @@ def run_matrix_mult_test(n: int, n_iter: int = 1):
     print(f"  Max time: {max_time:.6f} seconds")
 
 def main():
-    run_matrix_mult_test(10, n_iter=100)
-    run_matrix_mult_test(100, n_iter=100)
+    run_matrix_mult_test(10, n_iter=100000)
+    run_matrix_mult_test(100, n_iter=100000)
     run_matrix_mult_test(10000, n_iter=10)
 
 if __name__ == '__main__':
@@ -325,3 +325,18 @@ The plot below compares the average execution times (with RMS error bars) for th
 
 ![matrix_mult_performance](./fig/matrix_mult_performance.png)
 
+
+- **Python (using NumPy)**: 
+
+    NumPy `@` operator (equivalent to `np.matmul(A, B)`) delegates the heavy lifting to highly optimized low-level, BLAS-based libraries. 
+    Although Python itself incurs interpreter overhead, that cost is amortized when the actual multiplication is performed in compiled code. This allows Python to scale well even for larger matrices because most work is offloaded to efficient, vectorized routines.
+
+- **C++ (without optimization flags)**: 
+
+    The C++ implementation stores matrices in a single contiguous block (row-major order) and reuses a pre-allocated output vector. This improves cache locality and reduces dynamic memory allocation overhead compared to a vector-of-vectors. 
+    Despite memory optimizations, the implementation is based on a straightforward triple-nested loop, resulting in cubic time complexity. 
+    Without compiler optimizations, the code does not take full advantage of the CPU’s capabilities. The simple triple-nested loop is not auto-vectorized or parallelized, which limits its performance compared to both the optimized C++ version and NumPy even for small matrices.
+
+- **C++ (with optimization flags)**: 
+
+    When compiled with aggressive optimization (e.g., `-O3`), the C++ code benefits from auto-vectorization, function inlining, loop unrolling, and other advanced optimizations. For small and medium-sized matrices, the optimized C++ implementation outperforms unoptimized C++ and approaches the performance of NumPy. However, for very large matrices (n = 10,000), even the optimized C++ implementation requires around 216 seconds on average. Despite aggressive low-level improvements, the naive cubic-time ($O(n^3)$) algorithm still performs an enormous number of arithmetic operations, and single-threaded execution becomes a severe bottleneck.
