@@ -7,13 +7,13 @@ edit_uri: edit/main/docs
 nav:
   - Home: index.md
   - Task 1: 
-    - Docker installation and AlmaLinux9 setup: task1/install_docker.md
-    - AlmaLinux9 setup for Python and C/C++ development: task1/custom_docker.md
-    - Testing the AlmaLinux9 container with Python and C/C++: task1/test_py_cpp.md
+    - "Docker installation and AlmaLinux9 setup": task1/install_docker.md
+    - "AlmaLinux9 setup for Python and C/C++ development": task1/custom_docker.md
+    - "Testing the AlmaLinux9 container with Python and C/C++": task1/test_py_cpp.md
   - Task 2:
-    - Introduction to Task 2: task2/intro.md
-    - Vector Sum Implementation and Testing: task2/vector_sum.md
-    - Matrix Multiplication Implementation and Testing: task2/matrix_mult.md
+    - "Introduction to Task 2": task2/intro.md
+    - "Vector Sum": task2/vector_sum.md
+    - "Matrix Multiplication": task2/matrix_mult.md
 
 theme:
   name: material
@@ -43,6 +43,7 @@ theme:
 
   features:
       - content.code.copy
+      - content.tabs.link
       - navigation.footer
       - navigation.indexes
       - navigation.expand
