@@ -7,3 +7,4 @@ site
 __pycache__
 .DS_Store
 .vscode/
+deliverable.md
