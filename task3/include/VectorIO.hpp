@@ -6,8 +6,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include "H5Cpp.h"      // Include the HDF5 C++ API for HDF5 file I/O.
-#include "HelperFunctions.hpp"  // Includes helper functions like get_extension(), extract_directory(), etc.
+#include "H5Cpp.h"
+#include "HelperFunctions.hpp"
 
 /**
  * @brief Reads a vector of doubles from a file.
