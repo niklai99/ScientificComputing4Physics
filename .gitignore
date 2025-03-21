@@ -8,3 +8,11 @@ __pycache__
 .DS_Store
 .vscode/
 deliverable.md
+
+scalar_prod_cpp
+plot_results.py
+test_matrix_mult_cpp
+test_vector_sum_cpp
+trash/
+data/
+build/
