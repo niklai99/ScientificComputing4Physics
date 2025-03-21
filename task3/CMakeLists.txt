@@ -17,10 +17,19 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # Find the yaml-cpp package.
 find_package(yaml-cpp REQUIRED)
 
+# Find the HDF5 package.
+find_package(HDF5 REQUIRED COMPONENTS CXX)
+include_directories(${HDF5_INCLUDE_DIRS})
+
+# Find the GSL package.
+find_package(GSL REQUIRED)
+include_directories(${GSL_INCLUDE_DIRS})
+
 # Define executables.
-add_executable(generate_vectors src/generate_vectors.cpp)
-add_executable(vector_sum src/vector_sum.cpp)
-target_link_libraries(vector_sum yaml-cpp)
+add_executable(generateVectors src/generateVectors.cpp)
+add_executable(vectorSum src/vectorSum.cpp)
+target_link_libraries(generateVectors ${HDF5_LIBRARIES})
+target_link_libraries(vectorSum yaml-cpp ${HDF5_LIBRARIES} GSL::gsl GSL::gslcblas)
 
 # Configure the run script.
 set(RUN_SCRIPT_TEMPLATE ${PROJECT_SOURCE_DIR}/commands/run.in)
@@ -37,5 +46,5 @@ add_custom_target(copy_run ALL
 )
 
 # Make the overall build depend on the copy_run target.
-add_dependencies(generate_vectors copy_run)
-add_dependencies(vector_sum copy_run)
+add_dependencies(generateVectors copy_run)
+add_dependencies(vectorSum copy_run)
