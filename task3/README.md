@@ -95,13 +95,13 @@ project/                 # Project root directory
 
    The project installs a wrapper script named `run` in `/usr/local/bin` during the build process. This script lets you invoke your executables using paths relative to the project root.
 
-   - ** Example to Generate Vectors:**
+   - **Example to Generate Vectors:**
 
      ```bash
      run generateVectors 10 ./data/input/vector.h5
      ```
 
-   - ** Example to Compute Vector Sum:**
+   - **Example to Compute Vector Sum:**
 
      ```bash
      run vectorSum ./config/config.yml
