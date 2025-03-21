@@ -1,0 +1,49 @@
+# Use AlmaLinux9 as the base image
+FROM almalinux:9
+
+# Set environment variables for consistent locale settings
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
+
+# Install epel-release to enable additional repositories (EPEL provides yaml-cpp-devel)
+RUN dnf -y install epel-release
+
+# Update system packages and install essential development tools,
+# including yaml-cpp-devel for YAML parsing support.
+RUN dnf -y update && \
+    dnf -y install bash gcc gcc-c++ make cmake curl yaml-cpp-devel --allowerasing && \
+    dnf clean all
+
+# Install Miniconda (ARM version for aarch64) to manage Python packages
+RUN curl -fsSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -o /tmp/miniconda.sh && \
+    bash /tmp/miniconda.sh -b -p /opt/conda && \
+    rm /tmp/miniconda.sh
+
+# Add Miniconda to the PATH
+ENV PATH="/opt/conda/bin:${PATH}"
+
+# Initialize conda for bash (this will modify /root/.bashrc)
+RUN conda init bash
+
+# Append the 'll' alias for 'ls -l' to the bash configuration
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
+
+# Append Warpify command printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+RUN echo "printf '\eP\$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"bash\"}}\x9c'" >> /root/.bashrc
+
+# Create a new conda environment "python_env" with the required packages and install mplhep with pip
+RUN conda create -n python_env python numpy pandas matplotlib scipy -y && \
+    /opt/conda/envs/python_env/bin/pip install mplhep
+
+# Automatically activate the "python_env" conda environment when starting a bash shell
+RUN echo "conda activate python_env" >> /root/.bashrc
+
+# Create and set the working directory (e.g., /workspace)
+RUN mkdir -p /workspace
+WORKDIR /workspace
+
+# Mark /workspace as a volume so that local data can be persisted
+VOLUME ["/workspace"]
+
+# Define the default command to start an interactive bash shell
+CMD ["/bin/bash"]

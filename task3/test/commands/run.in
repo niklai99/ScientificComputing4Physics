@@ -1,0 +1,27 @@
+#!/bin/bash
+# run - A wrapper to execute project binaries.
+
+# The project root directory.
+PROJECT_ROOT="@PROJECT_SOURCE_DIR@"
+# The directory where executables are located.
+BIN_DIR="@BIN_DIR_ABS@"
+
+if [ $# -lt 1 ]; then
+    echo "Usage: run <executable> [arguments...]"
+    exit 1
+fi
+
+EXEC="$1"
+shift
+
+EXEC_PATH="${BIN_DIR}/${EXEC}"
+
+if [ ! -x "$EXEC_PATH" ]; then
+    echo "Error: Executable '$EXEC' not found in ${BIN_DIR}"
+    exit 1
+fi
+
+# Change working directory to the project root.
+cd "$PROJECT_ROOT"
+
+"$EXEC_PATH" "$@"
