@@ -81,14 +81,14 @@ project/                 # Project root directory
 └── README.md                    # Project documentation
 ```
 
-## How to Build
+## How to Build and Run the Project
 
 1. **Run the Build Script:**  
 
    Execute the `buildProject.sh` script to build the project:
 
    ```bash
-   ./scripts/buildProject.sh
+   bash ./scripts/buildProject.sh
    ```
 
 2. **Run the Executables:**
@@ -112,7 +112,7 @@ project/                 # Project root directory
 To remove all build artifacts and executables, run the `destroyProject.sh` script:
 
 ```bash
-./scripts/destroyProject.sh
+bash ./scripts/destroyProject.sh
 ```
 
 This script deletes the build directory and removes `/usr/local/bin/run`, allowing you to rebuild from scratch.
