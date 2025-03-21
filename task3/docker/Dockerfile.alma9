@@ -10,8 +10,10 @@ RUN dnf -y install epel-release
 
 # Update system packages and install essential development tools,
 # including yaml-cpp-devel for YAML parsing support.
+# include hdf5-devel for HDF5 support
+# include gsl-devel for GSL support
 RUN dnf -y update && \
-    dnf -y install bash gcc gcc-c++ make cmake curl yaml-cpp-devel --allowerasing && \
+    dnf -y install bash gcc gcc-c++ make cmake curl yaml-cpp-devel hdf5-devel gsl-devel --allowerasing && \
     dnf clean all
 
 # Install Miniconda (ARM version for aarch64) to manage Python packages
