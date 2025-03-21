@@ -1,10 +1,10 @@
 input:
-  vector_x: "./data/input/vector_N10_x.dat"
-  vector_y: "./data/input/vector_N10_y.dat"
+  vector_x: "./data/input/vector_N10_x.txt"
+  vector_y: "./data/input/vector_N10_y.txt"
   N: 10
   a: 3.0
 output:
   path: "./data/output"
   prefix: "result"
-file_format: "dat"  # Options: "dat", "txt", "hdf5"
-implementation: "default"  # Options: "default", "gsl"
+  format: "dat"  # Options: "dat", "txt", "h5" 
+implementation: "gsl"  # Options: "default", "gsl"
