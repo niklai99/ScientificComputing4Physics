@@ -1,27 +1,43 @@
 #!/bin/bash
 # run - A wrapper to execute project binaries.
+#
+# Design:
+# - The script uses placeholders (@PROJECT_SOURCE_DIR@ and @BIN_DIR_ABS@) that are
+#   replaced by CMake with the absolute path to the project root and the bin directory,
+#   respectively.
+# - It checks if the user provided at least one argument (the executable name).
+# - It constructs the full path to the requested executable (located in BIN_DIR).
+# - It verifies that the executable exists and is executable.
+# - Finally, it changes the working directory to the project root, ensuring that
+#   all relative paths (e.g., for input files or config files) are resolved correctly,
+#   and then runs the executable with any additional arguments.
 
-# The project root directory.
+# The project root directory (populated by CMake).
 PROJECT_ROOT="@PROJECT_SOURCE_DIR@"
-# The directory where executables are located.
+# The directory where executables are located (populated by CMake).
 BIN_DIR="@BIN_DIR_ABS@"
 
+# Check for at least one argument.
 if [ $# -lt 1 ]; then
     echo "Usage: run <executable> [arguments...]"
     exit 1
 fi
 
+# The first argument is the executable name.
 EXEC="$1"
 shift
 
+# Construct the full path to the executable.
 EXEC_PATH="${BIN_DIR}/${EXEC}"
 
+# Verify that the executable exists and is executable.
 if [ ! -x "$EXEC_PATH" ]; then
     echo "Error: Executable '$EXEC' not found in ${BIN_DIR}"
     exit 1
 fi
 
-# Change working directory to the project root.
+# Change the working directory to the project root.
 cd "$PROJECT_ROOT"
 
+# Execute the requested executable with any remaining arguments.
 "$EXEC_PATH" "$@"

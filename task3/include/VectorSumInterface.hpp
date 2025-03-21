@@ -7,7 +7,15 @@
 /**
  * @brief Abstract interface for computing the vector sum.
  *
- * Defines a common interface with a virtual method compute_sum().
+ * This interface defines a common method compute_sum() which all vector sum implementations
+ * must override. It enforces that any derived class accepts two input vectors (x and y), a scalar (a),
+ * and produces an output vector (d) according to the formula:
+ *
+ *     d = a * x + y
+ *
+ * It allows the rest of the application to work with a single, unified interface regardless
+ *   of the underlying implementation (e.g., default or GSL-based).
+ * It provides flexibility to easily extend or switch implementations at runtime.
  */
 class VectorSumInterface {
 public:

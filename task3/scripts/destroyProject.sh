@@ -1,11 +1,17 @@
 #!/bin/bash
+# Destroy project script.
+#
 # This script completely cleans the project so that you can rebuild from scratch.
-# It removes the build directory and the installed run script.
+# It removes:
+# - The build directory (which contains all generated build files and executables)
+# - The installed run script from /usr/local/bin
+#
+# WARNING: This script permanently deletes build artifacts and the run script.
 
 set -euo pipefail
 IFS=$'\n\t'
 
-# Determine the project root (directory where this script is located)
+# Determine the project root (directory where this script resides)
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Project root: $PROJECT_ROOT"
@@ -28,7 +34,7 @@ fi
 # Remove the run script from /usr/local/bin if it exists.
 if [ -f "/usr/local/bin/run" ]; then
     echo "Removing /usr/local/bin/run..."
-    rm -f /usr/local/bin/run
+    sudo rm -f /usr/local/bin/run
 else
     echo "/usr/local/bin/run not found."
 fi

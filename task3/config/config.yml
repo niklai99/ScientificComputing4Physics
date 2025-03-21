@@ -1,10 +1,41 @@
+# Configuration file for ScientificComputing4Physics Task 3.
+# This file controls both the input and output file locations, 
+# the number of elements to process, the scalar multiplier for the vector sum,
+# the desired output file format, and the implementation to use.
+
 input:
+  # Path to the file containing vector x.
+  # (Relative to the project root.)
   vector_x: "./data/input/vector_N10_x.txt"
+  
+  # Path to the file containing vector y.
   vector_y: "./data/input/vector_N10_y.txt"
+  
+  # The expected number of elements in each vector.
   N: 10
+  
+  # The scalar multiplier used in the vector sum operation (d = a*x + y).
   a: 3.0
+
 output:
+  # Directory where the output file will be stored.
+  # (A trailing slash is automatically ensured by the code.)
   path: "./data/output"
+  
+  # The prefix for the output file.
+  # The final output filename will be constructed as:
+  # <output_path><prefix>_N<value>_d.<format>
   prefix: "result"
-  format: "dat"  # Options: "dat", "txt", "h5" 
-implementation: "gsl"  # Options: "default", "gsl"
+  
+  # Desired file format for output.
+  # Options:
+  #   "dat" - plain text file (default if no extension provided)
+  #   "txt" - plain text file
+  #   "h5"  - HDF5 file format (uses HDF5 C++ API)
+  format: "dat"
+
+# Implementation selection for the vector sum operation.
+# Options:
+#   "default" - Use the standard C++ implementation.
+#   "gsl"     - Use the GNU Scientific Library (GSL) based implementation.
+implementation: "gsl"
