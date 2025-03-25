@@ -1,11 +1,5 @@
 # Task 3 Build and Run Guide
 
-This guide explains how to build and run the project. It is divided into three main sections:
-1. How to Build the Project
-2. How to Run the Project (with examples)
-3. Project Structure and Technical Explanations
-
---------------------------------------------------
 ## How to Build the Project
 
 Assuming you already have the project available locally, then execute the build script from the project root directory:
