@@ -148,7 +148,7 @@ project/                 # Project root directory
 │   ├── HelperFunctions.hpp      # Common helper functions for file/path operations
 │   ├── VectorIO.hpp             # I/O helper functions for reading/writing vectors
 │   ├── VectorSumInterface.hpp   # Abstract interface for vector sum computation
-│   ├── VectorSumDefault.hpp     # Default (elementwise) vector sum implementation
+│   ├── VectorSumDefault.hpp     # Default vector sum implementation
 │   └── VectorSumGSL.hpp         # GSL-based vector sum implementation
 ├── scripts/             # Helper scripts
 │   ├── buildProject.sh          # Script to build the project from scratch
