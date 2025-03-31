@@ -1,0 +1,11 @@
+# Configuration file for ScientificComputing4PhysicsStudents Task 4.
+
+# Number of sampling points to be used for the function evaluation
+# The number of sampling points is defined by the key 'N'.
+N: 100
+# Domain of the function
+# The domain is defined by the lower and upper bounds of the interval
+# where the function is evaluated.
+# The lower bound is defined by the key 'x_inf' and the upper bound by 'x_sup'.
+x_inf: 0
+x_sup: 3.14
