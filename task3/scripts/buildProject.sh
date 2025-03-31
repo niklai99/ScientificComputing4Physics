@@ -12,7 +12,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Determine the project root (directory where this script resides)
-PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 BUILD_DIR="$PROJECT_ROOT/build"
 
 echo "Building project in: $BUILD_DIR"
