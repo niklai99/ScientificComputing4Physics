@@ -54,6 +54,6 @@ After building, you can run the executables using the globally installed `run` w
 - **Read Sampled Function and Compute Integral (interpreted language):**
 
     ```bash
-    run compute_integral
+    run compute_integral --N <N> --precision <precision> 
     ```
 
