@@ -18,3 +18,4 @@ data/
 build/
 
 *.zip
+*.ipynb
