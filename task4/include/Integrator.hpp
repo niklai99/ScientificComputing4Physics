@@ -28,7 +28,7 @@ public:
     double integrateSimpson(double a, double b, int n) const {
         // Ensure at least 3 points.
         if(n < 3) {
-            n = 3;
+            throw std::invalid_argument("Number of sampling points must be at least 3.");
         }
         // Simpson's rule requires an odd number of points.
         // If n is even, simply increment n by 1.

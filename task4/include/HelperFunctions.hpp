@@ -86,4 +86,17 @@ inline void printIntegral(double integral, int precision = 16, int n_samp = 0, d
     std::cout << "Number of Sampling Points: " << n_samp << std::endl;
 }
 
+// Helper function to save an integral result to a file.
+inline void saveIntegralResult(const std::string& DATA_DIR, const std::string& method, int N, int precision, double value) {
+    std::ofstream integralFile;
+    std::string fileName = DATA_DIR + "/integral" + method + "_N" + std::to_string(N) +
+                             "_precision" + std::to_string(precision) + ".txt";
+    integralFile.open(fileName);
+    if (!integralFile.is_open()) {
+        throw std::runtime_error("Unable to open file for writing: " + fileName);
+    }
+    integralFile << std::fixed << std::setprecision(precision) << value;
+    integralFile.close();
+}
+
 #endif  // HELPER_FUNCTIONS_HPP
