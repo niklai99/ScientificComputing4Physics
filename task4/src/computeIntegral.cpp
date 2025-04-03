@@ -6,7 +6,7 @@
 #include "Integrator.hpp"
 
 const std::string DATA_DIR = "./data";
-const std::string OUTPUT_FILE = DATA_DIR + "/output.txt";
+const std::string OUTPUT_FILE = DATA_DIR + "/data.txt";
 
 const double ANALYTIC_SOLUTION = (std::exp(M_PI / 2.0) - 1.0) / 2.0;
 
