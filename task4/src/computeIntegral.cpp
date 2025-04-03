@@ -1,16 +1,26 @@
+// integrate_function.cpp
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <cmath>
 #include "HelperFunctions.hpp"
 #include "Function.hpp"
 #include "Integrator.hpp"
 
+// Constants for data output and integration bounds.
 const std::string DATA_DIR = "./data";
-const std::string OUTPUT_FILE = DATA_DIR + "/data.txt";
+const std::string DATA_NAME = "data";
+const int OUTPUT_PRECISION = 16;
 
+// Integration interval: [0, π/2]
+const double INTEGRATION_A = 0.0;
+const double INTEGRATION_B = M_PI / 2.0;
+
+// Analytic solution for comparison.
 const double ANALYTIC_SOLUTION = (std::exp(M_PI / 2.0) - 1.0) / 2.0;
 
 int main(int argc, char* argv[]) {
+    // Read input parameters.
     InputParameters params;
     try {
         params = readInputs(argc, argv);
@@ -27,69 +37,76 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Open the output file.
+    // Create the data output file path.
+    std::string DATA_FILE = DATA_DIR + "/" + DATA_NAME + "_" + std::to_string(params.N) + ".txt";
     std::ofstream outFile;
     try {
-        outFile = openOutputFile(OUTPUT_FILE);
+        outFile = openOutputFile(DATA_FILE);
     } catch (const std::exception& e) {
         std::cerr << "File Error: " << e.what() << std::endl;
         return 1;
     }
 
-    // Create an instance of the function f(x)=cos(x)*exp(x)
+    // Create an instance of the function f(x) = cos(x) * exp(x)
     CosExpFunction f;
 
-    // Write the sampled points into the file.
+    // Generate and write N uniformly spaced points over [params.x_inf, params.x_sup].
     double dx = (params.x_sup - params.x_inf) / (params.N - 1);
     for (int i = 0; i < params.N; ++i) {
         double x = params.x_inf + i * dx;
-        outFile << std::fixed << std::setprecision(16) << x << " " << f(x) << "\n";
+        outFile << std::fixed << std::setprecision(OUTPUT_PRECISION)
+                << x << " " << f(x) << "\n";
     }
     outFile.close();
 
-    // Create an Integrator instance and compute the integral from 0 to 2π.
+    std::cout << "Generated " << params.N << " points in the range ["
+              << params.x_inf << ", " << params.x_sup << "]." << std::endl;
+    std::cout << "Data saved to " << DATA_FILE << std::endl;
+
+    // Create an Integrator instance.
     Integrator integrator(f);
 
-    // Integrate the function from 0 to π/2 with N sampling points.
-    double integralTrapz;
-    double integralSimpson;
-    double integralRomberg;
+    // Compute the actual number of points in the integration interval [INTEGRATION_A, INTEGRATION_B]
+    // given dx from the generated data.
+    const int N_AB = static_cast<int>(std::round((INTEGRATION_B - INTEGRATION_A) / dx)) + 1;
+
+    double integralTrapz, integralSimpson, integralRomberg;
     try {
-        integralTrapz = integrator.integrateTrapz(0.0, M_PI / 2.0, params.N);
-        integralSimpson = integrator.integrateSimpson(0.0, M_PI / 2.0, params.N);
-        integralRomberg = integrator.integrateRomberg(0.0, M_PI / 2.0, 10, 1e-12);
+        integralTrapz   = integrator.integrateTrapz(INTEGRATION_A, INTEGRATION_B, N_AB);
+        integralSimpson = integrator.integrateSimpson(INTEGRATION_A, INTEGRATION_B, N_AB);
+        integralRomberg = integrator.integrateRomberg(INTEGRATION_A, INTEGRATION_B, 10, 1e-12);
     } catch (const std::exception& e) {
         std::cerr << "Integration Error: " << e.what() << std::endl;
         return 1;
     }
 
-    // Print the computed integral with 16-digit precision.
+    std::cout << "Integration bounds: [" << INTEGRATION_A << ", " << INTEGRATION_B << "]" << std::endl;
     std::cout << "\nTrapezoidal Rule:" << std::endl;
-    printIntegral(integralTrapz, 16, params.N, ANALYTIC_SOLUTION);
+    printIntegral(integralTrapz, OUTPUT_PRECISION, N_AB, ANALYTIC_SOLUTION);
     std::cout << "\nSimpson's Rule:" << std::endl;
-    printIntegral(integralSimpson, 16, params.N, ANALYTIC_SOLUTION);
+    printIntegral(integralSimpson, OUTPUT_PRECISION, N_AB, ANALYTIC_SOLUTION);
     std::cout << "\nRomberg Integration:" << std::endl;
-    printIntegral(integralRomberg, 16, params.N, ANALYTIC_SOLUTION);
+    printIntegral(integralRomberg, OUTPUT_PRECISION, N_AB, ANALYTIC_SOLUTION);
 
-    // Save integral results in a file called "integral<Method>_N<N>_precision<Precision>.txt"
-    std::ofstream integralFile;
+    // Save the integral results to files.
     try {
-        integralFile.open(DATA_DIR + "/integralTrapz_N" + std::to_string(params.N) + "_precision16.txt");
-        integralFile << std::fixed << std::setprecision(16) << integralTrapz;
-        integralFile.close();
-
-        integralFile.open(DATA_DIR + "/integralSimpson_N" + std::to_string(params.N) + "_precision16.txt");
-        integralFile << std::fixed << std::setprecision(16) << integralSimpson;
-        integralFile.close();
-
-        integralFile.open(DATA_DIR + "/integralRomberg_N" + std::to_string(params.N) + "_precision16.txt");
-        integralFile << std::fixed << std::setprecision(16) << integralRomberg;
-        integralFile.close();
+    
+        saveIntegralResult(DATA_DIR, "Trapz", N_AB, OUTPUT_PRECISION, integralTrapz);
+        saveIntegralResult(DATA_DIR, "Simpson", N_AB, OUTPUT_PRECISION, integralSimpson);
+        saveIntegralResult(DATA_DIR, "Romberg", N_AB, OUTPUT_PRECISION, integralRomberg);
     } catch (const std::exception& e) {
         std::cerr << "File Error: " << e.what() << std::endl;
         return 1;
     }
     std::cout << "\nResults saved to " << DATA_DIR << " directory." << std::endl;
+
+    // Output a CSV row (fields: Language, N_AB, Trapz, Simpson, Romberg, Analytic)
+    std::cout << "cpp," << N_AB << ","
+              << std::fixed << std::setprecision(OUTPUT_PRECISION)
+              << integralTrapz << ","
+              << integralSimpson << ","
+              << integralRomberg << ","
+              << ANALYTIC_SOLUTION << std::endl;
 
     return 0;
 }
