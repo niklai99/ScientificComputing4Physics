@@ -56,4 +56,3 @@ After building, you can run the executables using the globally installed `run` w
     ```bash
     run compute_integral --N <N> --precision <precision> 
     ```
-
