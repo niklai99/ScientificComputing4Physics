@@ -112,7 +112,7 @@ Explanation of results:
         the overall net offset (0.5) is not preserved.
 
 
-3. Kahan Summation
+3. **Kahan Summation**
 
     - What happens:
 
@@ -128,7 +128,7 @@ Explanation of results:
         As a result, it also ends up returning -0.5.
 
 
-4. Neumaier’s Improvement (Improved Kahan–Babuška Algorithm)
+4. **Neumaier’s Improvement (Improved Kahan–Babuška Algorithm)**
 
     - What happens:
 
