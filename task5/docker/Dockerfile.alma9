@@ -1,0 +1,49 @@
+# Use AlmaLinux9 as the base image
+FROM almalinux:9
+
+# Set environment variables for consistent locale settings
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
+
+# Install epel-release to enable additional repositories (EPEL provides yaml-cpp-devel)
+RUN dnf -y install epel-release
+
+# Update system packages and install essential development tools,
+# including yaml-cpp-devel for YAML parsing support.
+# include hdf5-devel for HDF5 support
+# include gsl-devel for GSL support
+RUN dnf -y update && \
+    dnf -y install bash gcc gcc-c++ make cmake curl --allowerasing && \
+    dnf clean all
+
+# Install dependencies required to build GSL
+RUN dnf -y install gcc gcc-c++ make autoconf automake libtool
+
+# Download, build, and install GSL 2.8 from source
+RUN curl -LO https://ftp.gnu.org/gnu/gsl/gsl-2.8.tar.gz && \
+    tar -xzf gsl-2.8.tar.gz && \
+    cd gsl-2.8 && \
+    ./configure --prefix=/usr/local && \
+    make -j$(nproc) && \
+    make install && \
+    cd .. && rm -rf gsl-2.8 gsl-2.8.tar.gz && \
+    ldconfig
+
+# Set the PATH environment variable to include /usr/local/bin
+ENV PATH="/usr/local/bin:${PATH}"
+
+# Append the 'll' alias for 'ls -l' to the bash configuration
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
+
+# Append Warpify command printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+RUN echo "printf '\eP\$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"bash\"}}\x9c'" >> /root/.bashrc
+
+# Create and set the working directory (e.g., /workspace)
+RUN mkdir -p /workspace
+WORKDIR /workspace
+
+# Mark /workspace as a volume so that local data can be persisted
+VOLUME ["/workspace"]
+
+# Define the default command to start an interactive bash shell
+CMD ["/bin/bash"]
