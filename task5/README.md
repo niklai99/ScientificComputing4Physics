@@ -194,7 +194,7 @@ The DAXPY tests are designed to verify that the computed result vector `d` (obta
       - **RMS tolerance:** Scales approximately as `(std_dev / sqrt(2*n))` due to the variance of the squared values.
     - These tolerances ensure that larger vectors (which have smaller statistical uncertainties) are held to a tighter criterion than smaller ones.
   
-4. **Validation:**:
+4. **Validation:**
 
     - The test validates that the computed mean and RMS of `d` fall within these dynamically computed tolerances.
     - The test passes if the statistical properties of `d` match the expected normal distribution.
