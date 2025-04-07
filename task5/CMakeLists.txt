@@ -44,8 +44,10 @@ include_directories(${GSL_INCLUDE_DIRS})
 # The target_link_libraries commands link the necessary libraries to each executable.
 # -----------------------------------------------------------------------------
 add_executable(computeSum src/computeSum.cpp)
-# target_link_libraries(computeSum GSL::gsl GSL::gslcblas)
 target_link_libraries( computeSum ${GSL_LIBRARIES} )
+
+add_executable(testDaxpy src/testDaxpy.cpp)
+target_link_libraries( testDaxpy ${GSL_LIBRARIES} )
 
 # -----------------------------------------------------------------------------
 # Configure the run script:
@@ -80,6 +82,7 @@ add_custom_target(copy_run ALL
 # so that the run script is always copied when building the project.
 # -----------------------------------------------------------------------------
 add_dependencies(computeSum copy_run)
+add_dependencies(testDaxpy copy_run)
 
 # -----------------------------------------------------------------------------
 # Set the CMake export compile commands option to ON.
