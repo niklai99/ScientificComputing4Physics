@@ -143,3 +143,58 @@ Explanation of results:
         to capture the lost low-order digits. By applying the correction (adding the compensation 
         back) at the end of the process, Neumaier’s algorithm recovers the small contribution of 
         1.0 that was lost, and the final sum becomes 0.5 as expected.
+
+
+## Task 5b
+
+To run the DAXPY tests, use the following command:
+
+```bash
+run testDaxpy
+```
+
+This command will execute the DAXPY test suite with default parameter values:
+
+- **Vector Size (n):** 1_000_000
+- **Scalar (a):** 3
+- **Iterations (n_iter):** 100
+
+You can also override these defaults by providing command-line arguments. For example:
+
+```bash
+run testDaxpy 500000 2.5 50
+```
+
+This command will execute the DAXPY test suite with:
+
+- **Vector Size (n):** 500_000
+- **Scalar (a):** 2.5
+- **Iterations (n_iter):** 50
+
+
+### Testing the correct result using expected mean and standard deviation
+
+The DAXPY tests are designed to verify that the computed result vector `d` (obtained by performing `d = a * x + y`) is statistically correct. The test suite uses the following approach:
+
+1. **Input generation:**
+
+  - Both vectors x and y are generated with Gaussian random numbers having mean 0 and standard deviation 1.
+
+2. **Expected distribution:**
+
+  - Since `x` and `y` are independent and normally distributed, the linear combination `d = a*x + y` should be normally distributed.
+  - **Expected mean:** 0 (because the mean of both x and y is 0).
+  - **Expected standard deviation:** sqrt(a^2 + 1). This follows from the property of independent normal distributions where the variances add (variance of `a*x`is `a^2`, and variance of `y` is `1`).
+
+3. **Dynamic tolerances:**
+
+  - The test suite computes the sample mean and RMS of the result vector `d`.
+  - Dynamic tolerances are applied based on the size of the vector to account for statistical uncertainties:
+    - **Mean tolerance:** Scales approximately as `(std_dev / sqrt(n))`, reflecting the standard error of the mean.
+    - **RMS tolerance:** Scales approximately as `(std_dev / sqrt(2*n))` due to the variance of the squared values.
+  - These tolerances ensure that larger vectors (which have smaller statistical uncertainties) are held to a tighter criterion than smaller ones.
+  
+4. **Validation:**:
+
+  - The test validates that the computed mean and RMS of `d` fall within these dynamically computed tolerances.
+  - The test passes if the statistical properties of `d` match the expected normal distribution.
