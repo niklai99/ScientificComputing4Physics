@@ -76,3 +76,67 @@ R[0][0] = (1.00119e+06,0)  (DC term again)
     $$C[0,0] = \sum_{i,j} A[i,j]$$
 
     and similarly for the real‐to‐complex version. In other words, it’s the total “mass” (or N×mean) of your input matrix.
+
+## Task 6 bonus
+
+When your input matrix **A** is real, its 2D FFT **C = FFT2D(A)** obeys **Hermitian symmetry**:
+
+```math
+C[i,j] = conj( C[(M–i) mod M, (N–j) mod N] )
+```
+
+so you only need to store the first ⌊N/2⌋+1 columns of each row; the rest can be filled in by reflecting and conjugating. In other words, every frequency coefficient in the missing half of the spectrum is just the complex conjugate of one you already have, but “reflected” across the origin in frequency space.
+
+### Workflow
+
+1. **Generate test matrix**:
+
+    - Create a 6x6 real matrix A with entries sampled from a Normal distribution N(1,1).
+
+2. **Compute full spectrum C**:
+
+    - Promote A to complex: all imaginary parts set to zero.
+    - Compute the full 2D FFT of A using the C2C FFT code.
+
+3. **Compute half spectrum R**:
+
+    - Compute the half-spectrum from A using the R2C FFT code.
+
+4. **Reconstruct C from R**:
+
+    - Let M′ = R.rows(), N′ = 2*(R.cols()–1).
+    - Allocate an M′×N′ complex matrix C_rec.
+    - Copy the non‑redundant block:
+
+    ```cpp
+    for (i = 0; i < M′; ++i)
+        for (j = 0; j < R.cols(); ++j)
+            C_rec[i][j] = R[i][j];
+    ```
+
+    - Fill the remaining columns by Hermitian symmetry:
+
+    ```cpp
+    for (i = 0; i < M′; ++i)
+        for (j = R.cols(); j < N′; ++j) {
+            i_sym = (M′ - i) % M′;
+            j_sym = (N′ - j) % N′;
+            C_rec[i][j] = std::conj( R[i_sym][j_sym] );
+    }
+    ```
+
+5. **Verify equality**:
+
+    - Compare `C_full` vs `C_rec` element‑wise.
+
+
+### Example run
+
+```bash
+$ run task06_bonus
+```
+
+```plaintext
+Max abs(C_full - C_from_R) = 7.10543e-15
+✔ Bonus: reconstructed spectrum matches within tol = 1e-12
+```
