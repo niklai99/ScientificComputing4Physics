@@ -65,6 +65,6 @@ R[0][0] = (1.00119e+06,0)  (DC term again)
 
 1. **Are you reaching machine precision when reconstructing the original data?**
 
-    A “perfect” machine‐precision result is on the order of IEEE double‑precision $\epsilon \sim 2 \times 10^{-16}$. The absolute RMSE of a few $10^{-14}$ is only two orders of magnitude above $\epsilon$, which is exactly what one would expect if you accumulate rounding error over $\sim 10^6$ points (roughly $\sqrt{N}\cdot\epsilon\simeq 10^3\cdot10^{-16}\sim10^{-13}$). The relative RMSE of $\sim 10^{-11}$ likewise reflects that we are doing `O(N log N)` operations, each introducing O($\epsilon$) error.
+    A “perfect” machine‐precision result is on the order of IEEE double‑precision $\epsilon \sim 2 \times 10^{-16}$. The absolute RMSE of a few $10^{-14}$ is only two orders of magnitude above $\epsilon$, which is exactly what one would expect if you accumulate rounding error over $\sim 10^6$ points (roughly $\sqrt{N}\cdot\epsilon\simeq 10^3\cdot10^{-16}\sim10^{-13}$). The relative RMSE of $\sim 10^{-11}$ likewise reflects that we are doing `O(N log N)` operations, each introducing O($\epsilon$) error.
 
     Bottom line: YEs, we are essentially hitting machine precision. The tiny excess over $\epsilon$ comes from doing millions of floating‑point ops (every butterfly, every complex multiply/add).
