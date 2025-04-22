@@ -67,4 +67,12 @@ R[0][0] = (1.00119e+06,0)  (DC term again)
 
     A “perfect” machine‐precision result is on the order of IEEE double‑precision $\epsilon \sim 2 \times 10^{-16}$. The absolute RMSE of a few $10^{-14}$ is only two orders of magnitude above $\epsilon$, which is exactly what one would expect if you accumulate rounding error over $\sim 10^6$ points (roughly $\sqrt{N}\cdot\epsilon\simeq 10^3\cdot10^{-16}\sim10^{-13}$). The relative RMSE of $\sim 10^{-11}$ likewise reflects that we are doing `O(N log N)` operations, each introducing O($\epsilon$) error.
 
-    Bottom line: YEs, we are essentially hitting machine precision. The tiny excess over $\epsilon$ comes from doing millions of floating‑point ops (every butterfly, every complex multiply/add).
+    Bottom line: Yes, we are essentially hitting machine precision. The tiny excess over $\epsilon$ comes from doing millions of floating‑point ops (every butterfly, every complex multiply/add).
+
+2. **What is the value of C[0,0] or R[0,0]? Can you guess its meaning?**
+
+    That’s the DC component (the zero‐frequency bin) of the transform. In an un‐normalized forward FFT,
+
+    $$C[0,0] = \sum_{i,j} A[i,j]$$
+
+    and similarly for the real‐to‐complex version. In other words, it’s the total “mass” (or N×mean) of your input matrix.
