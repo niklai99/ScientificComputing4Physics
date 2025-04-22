@@ -82,7 +82,7 @@ R[0][0] = (1.00119e+06,0)  (DC term again)
 When your input matrix **A** is real, its 2D FFT **C = FFT2D(A)** obeys **Hermitian symmetry**:
 
 $$
-C[i,j] = \bar{C[(M–i) \mod M, (N–j) \mod N]}
+C[i,j] = \Bar{C[(M–i) \mod M, (N–j) \mod N]}
 $$
 
 so you only need to store the first ⌊N/2⌋+1 columns of each row; the rest can be filled in by reflecting and conjugating. In other words, every frequency coefficient in the missing half of the spectrum is just the complex conjugate of one you already have, but “reflected” across the origin in frequency space.
