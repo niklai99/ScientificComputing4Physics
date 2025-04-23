@@ -196,4 +196,31 @@ ifft2d_c2c_trim(const FFT2dC2CTrimmed& t)
     return out;
 }
 
+// ————————————————————————————————————————————————————————————————
+// Reconstruct full complex spectrum from trimmed R
+// ————————————————————————————————————————————————————————————————
+std::vector<std::vector<std::complex<double>>>
+r2c_reconstruct_full(const std::vector<std::vector<std::complex<double>>>& R)
+{
+    std::size_t M      = R.size();
+    std::size_t N_half = M && !R.empty() ? R[0].size() : 0;
+    std::size_t N      = 2*(N_half - 1);
+
+    // rebuild full Hermitian spectrum
+    std::vector<std::vector<std::complex<double>>> full(
+        M, std::vector<std::complex<double>>(N));
+    for (std::size_t i = 0; i < M; ++i) {
+        // first half
+        for (std::size_t j = 0; j < N_half; ++j)
+            full[i][j] = R[i][j];
+        // mirror
+        for (std::size_t j = N_half; j < N; ++j) {
+            std::size_t ii = (M - i) % M;
+            std::size_t jj = (N - j) % N;
+            full[i][j] = std::conj(R[ii][jj]);
+        }
+    }
+    return full;
+}
+
 } // namespace FFT

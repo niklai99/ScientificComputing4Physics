@@ -71,6 +71,16 @@ fft2d_c2c_trim(const std::vector<std::vector<std::complex<double>>>& input);
 std::vector<std::vector<std::complex<double>>>
 ifft2d_c2c_trim(const FFT2dC2CTrimmed& t);
 
+
+/**
+ * @brief Reconstruct the full complex‐to‐complex spectrum from a
+ *        real→complex “trimmed” half‐spectrum.
+ *
+ * Given R of shape M×(N/2+1), returns the full M×N Hermitian spectrum.
+ */
+std::vector<std::vector<std::complex<double>>>
+r2c_reconstruct_full(const std::vector<std::vector<std::complex<double>>>& R);
+
 } // namespace FFT
 
 #endif // FFT_HPP

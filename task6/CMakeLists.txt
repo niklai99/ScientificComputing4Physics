@@ -66,8 +66,15 @@ target_link_libraries(test_fft2d_c2c_trim PRIVATE fft_lib)
 add_executable(test_fft2d_r2c_trim  test/test_fft2d_r2c_trim.cpp)
 target_link_libraries(test_fft2d_r2c_trim PRIVATE fft_lib)
 
-add_executable(task06 src/task06.cpp src/FFT.cpp)
+add_executable(test_fft2d_r2c_reconstruct_full test/test_fft2d_r2c_reconstruct_full.cpp)
+target_link_libraries(test_fft2d_r2c_reconstruct_full PRIVATE fft_lib)
+
+add_executable(task06 src/task06.cpp)
 target_link_libraries(task06 PRIVATE fft_lib)
+
+add_executable(task06_bonus src/task06_bonus.cpp)
+target_link_libraries(task06_bonus PRIVATE fft_lib)
+
 
 # target_include_directories(task06 PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
@@ -109,6 +116,9 @@ add_dependencies(test_fft1d copy_run)
 add_dependencies(test_fft2d_c2c copy_run)
 add_dependencies(test_fft2d_c2c_trim copy_run)
 add_dependencies(test_fft2d_r2c_trim copy_run)
+add_dependencies(test_fft2d_r2c_reconstruct_full copy_run)
+add_dependencies(task06 copy_run)
+add_dependencies(task06_bonus copy_run)
 
 # -----------------------------------------------------------------------------
 # Set the CMake export compile commands option to ON.
