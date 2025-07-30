@@ -1,0 +1,36 @@
+# Use AlmaLinux9 as the base image
+FROM almalinux:9
+
+# Set environment variables for consistent locale settings
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
+
+# Update and install essential build tools plus FFTW dev library
+RUN dnf -y update && \
+    dnf -y install \
+      bash \
+      gcc \
+      gcc-c++ \
+      make \
+      cmake \
+      fftw-devel && \
+    dnf clean all
+
+# Set the PATH environment variable to include /usr/local/bin
+ENV PATH="/usr/local/bin:${PATH}"
+
+# Append the 'll' alias for 'ls -l' to the bash configuration
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
+
+# Append Warpify command printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+RUN echo "printf '\eP\$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"bash\"}}\x9c'" >> /root/.bashrc
+
+# Create and set the working directory (e.g., /workspace)
+RUN mkdir -p /workspace
+WORKDIR /workspace
+
+# Mark /workspace as a volume so that local data can be persisted
+VOLUME ["/workspace"]
+
+# Define the default command to start an interactive bash shell
+CMD ["/bin/bash"]
