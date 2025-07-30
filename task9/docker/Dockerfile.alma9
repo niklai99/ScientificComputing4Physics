@@ -1,0 +1,50 @@
+# Use AlmaLinux9 as the base image
+FROM almalinux:9
+
+# Set environment variables for consistent locale settings
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8
+
+# Update and install essential build tools, FFTW dev library,
+# OpenMPI (runtime + headers) and make its wrappers available
+RUN dnf -y update && \
+    dnf -y install \
+      bash \
+      gcc \
+      gcc-c++ \
+      make \
+      cmake \
+      openmpi \
+      openmpi-devel && \
+    # Symlink the MPI compiler wrappers into /usr/bin
+    ln -s /usr/lib64/openmpi/bin/mpicc  /usr/bin/mpicc && \
+    ln -s /usr/lib64/openmpi/bin/mpicxx /usr/bin/mpicxx && \
+    ln -s /usr/lib64/openmpi/bin/mpirun /usr/bin/mpirun && \
+    dnf clean all
+
+# Ensure the OpenMPI lib directory is on the runtime library path
+ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:${LD_LIBRARY_PATH}"
+
+# allow mpirun to run as root by default
+ENV OMPI_ALLOW_RUN_AS_ROOT=1 \
+    OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
+
+
+# Set the PATH environment variable to include /usr/local/bin
+ENV PATH="/usr/local/bin:${PATH}"
+
+# Append the 'll' alias for 'ls -l' to the bash configuration
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
+
+# Append Warpify command printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+RUN echo "printf '\eP\$f{\"hook\": \"SourcedRcFileForWarp\", \"value\": { \"shell\": \"bash\"}}\x9c'" >> /root/.bashrc
+
+# Create and set the working directory (e.g., /workspace)
+RUN mkdir -p /workspace
+WORKDIR /workspace
+
+# Mark /workspace as a volume so that local data can be persisted
+VOLUME ["/workspace"]
+
+# Define the default command to start an interactive bash shell
+CMD ["/bin/bash"]
