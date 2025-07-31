@@ -8,9 +8,6 @@ hide:
 
 This page serves as a central hub for all homework assignments (tasks) given throughout the course. Each task can be accessed from the **[Task Section](#homework--task-overview)** below, or from the navigation bar at the top-left of the webpage, beneath the course title. Within each task, you will find multiple pages dedicated to different sub-tasks.
 
-!!! warning
-    This webpage is actively maintained and updated as the course progresses. **Currently, only Task 1 and Task 2 are fully documented.** More tasks will appear in the future.
-
 
 ## Contact Information
 
@@ -143,5 +140,22 @@ Below are links to the tasks (micro-projects) completed throughout the course:
     - [Vector Sum](task2/vector_sum.md)
     - [Matrix Multiplication](task2/matrix_mult.md)
     - [Questions Regarding Task 2](task2/questions.md)
-
-Future tasks will be added here as the course progresses. 
+- **Task 3:**
+    - [Introduction to Task 3](task3/intro.md)
+    - [Docker installation and setup](task3/docker.md)
+    - [Building the project](task3/build.md)
+    - [Code overview](task3/code_overview.md)
+    - [File I/O](task3/vector_io.md)
+    - [Vector sum implementations](task3/vector_sum.md)
+- **Task 4:**
+  - [Introduction to Task 4](task4/intro.md)
+- **Task 5:**
+  - [Introduction to Task 5](task5/intro.md)
+- **Task 6:**
+  - [Introduction to Task 6](task6/intro.md)
+- **Task 7:**
+  - [Introduction to Task 7](task7/intro.md)
+- **Task 8:**
+  - [Introduction to Task 8](task8/intro.md)
+- **Task 9:**
+  - [Introduction to Task 9](task9/intro.md)
