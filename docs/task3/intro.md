@@ -1,13 +1,13 @@
 # Introduction
 
-Welcome to Task 3 of the Scientific Computing for Physics Students course. This project demonstrates a complete, real-world example of scientific computing using C++ along with several popular open-source libraries. It is designed both as a learning tool and as a practical framework that integrates multiple components into one cohesive system.
+Task 3 demonstrates a more complete and practical implementation of basic software and project design. It is designed both as a learning tool and as a practical framework that integrates multiple components into one cohesive system.
 
 ## What the Project Does
 
 The project focuses on two primary operations:
 
 1. **Generate Vectors:**  
-   The `generateVectors` executable creates two vectors (x and y) of dimension N filled with constant values. These vectors can be saved in either plain text format (".txt" or ".dat") or in HDF5 format (".h5"), depending on the file extension provided in the filename prefix.
+   The `generateVectors` executable creates two vectors (x and y) of dimension `N` filled with constant values. These vectors can be saved in either plain text format (".txt" or ".dat") or in HDF5 format (".h5"), depending on the file extension provided in the filename prefix.
 
 2. **Compute Vector Sum:**  
    The `vectorSum` executable reads the vectors from files (using the appropriate I/O method based on the file extension) and computes their sum according to the formula:
@@ -77,4 +77,4 @@ project/                 # Project root directory
 └── README.md                # Project documentation
 ```
 
-The detailed documentation for each component is provided in a respective sections of this documentation. Keep reading to learn more about the project and how to use it!
+The detailed documentation for each component is provided in a respective sections of this documentation.
