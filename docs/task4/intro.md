@@ -69,3 +69,59 @@ To confirm correctness and explore convergence behavior, a Python script:
 5. Computes the absolute errors between C++ and Python results.
    
 Results confirm theoretical error rates and demonstrate agreement between C++ and Python implementations.
+
+## What you will find in this repository
+
+- **Source Code (`src/`):**  
+    Contains the C++ source files for computing the integral using the three methods: trapezoidal, Simpson's, and Romberg.
+
+- **Header Files (`include/`):**  
+    Provides declarations for the integration methods, helper functions for file I/O, and path manipulations.
+
+- **Python Scripts (`python/`):**  
+    Contains the Python script for validating and visualizing the results of the C++ integration methods.
+
+- **Configuration Files (`config/`):**  
+    A YAML file (e.g., `config.yml`) that specifies the integration parameters, including the function to integrate, the interval, the number of points (N), and output options.
+
+- **Helper Scripts (`scripts/`):**  
+    - `buildProject.sh`: A script to build the project from scratch.
+    - `destroyProject.sh`: A script to completely clean the project, removing build artifacts and installed commands.
+
+- **Docker Environment (`docker/`):**  
+    A Dockerfile (e.g., `Dockerfile.alma9`) is included to provide a ready-to-use development environment with all required dependencies.
+
+- **Run Script Template (`commands/run.in`):**  
+    This template is used to generate a wrapper script that is installed to `/usr/local/bin` for easy invocation of project executables.
+
+- **`CMakeLists.txt`:**  
+    The CMake build configuration file for the project.
+
+
+### Project Structure
+
+The project directory structure is as follows:
+
+```plaintext
+project/                 # Project root directory
+│ 
+├── commands/                # Contains the run script template
+│   └── run.in                   # Script to run executables with the correct environment
+├── config/                  # Configuration files
+│   └── config.yml/              # Example configuration file
+├── docker/                  # Docker build context
+│   └── Dockerfile.alma9         # Dockerfile for building the project
+├── include/                 # Header files
+│   ├── HelperFunctions.hpp      # Common helper functions for file/path operations
+│   ├── Function.hpp             # Declaration of the function to integrate
+│   ├── Integrator.hpp           # Abstract interface for integration methods
+├── python/                  # Python scripts
+│   ├── compute_integral.py          # Python script for computing and validating integrals
+├── scripts/                 # Helper scripts
+│   ├── buildProject.sh          # Script to build the project from scratch
+│   └── destroyProject.sh        # Script to completely clean the project
+├── src/                     # Source code files
+│   ├── computeIntegral.cpp      # Code to compute the integral using the three methods
+├── CMakeLists.txt           # CMake build configuration file
+└── README.md                # Project documentation
+```
