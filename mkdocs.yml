@@ -21,7 +21,7 @@ nav:
     - "Building the project": task3/build.md
     - "Code documentation": 
       - "Code overview": task3/code_overview.md
-      - "File I/O (text/binary and HDF5)": task3/vector_io.md
+      - "File I/O (text, binary and HDF5)": task3/vector_io.md
       - "Vector sum implementations": task3/vector_sum.md
   - Task 4:
     - "Introduction to Task 4": task4/intro.md
