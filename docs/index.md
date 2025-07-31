@@ -149,6 +149,14 @@ Below are links to the tasks (micro-projects) completed throughout the course:
     - [Vector sum implementations](task3/vector_sum.md)
 - **Task 4:**
     - [Introduction to Task 4](task4/intro.md)
+    - [Docker installation and setup](task4/docker.md)
+    - [Building the project](task4/build.md)
+    - [Code documentation](task4/code_overview.md)
+    - [Sampling and Data I/O](task4/sampling.md)
+    - [Trapezoidal and Simpson integration methods](task4/integration.md)
+    - [Romberg integration method](task4/romberg.md)
+    - [Comparison with Python](task4/python.md)
+    - [Results and discussion](task4/results.md)
 - **Task 5:**
     - [Introduction to Task 5](task5/intro.md)
 - **Task 6:**

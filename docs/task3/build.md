@@ -46,7 +46,7 @@ Assuming you already have the project available locally and your Docker containe
         run vectorSum "./config/config.yml"
         ```
 
-More details on properly using the executables are provided in the subsequent sections of this documentation. You can skip to the next page if not interested in the build process details. 
+    More details on properly using the executables are provided in the subsequent sections of this documentation. You can skip to the next page if not interested in the build process details. 
 
 
 ## In-Depth Build Process Explanation
