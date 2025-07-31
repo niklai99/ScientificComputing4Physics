@@ -151,7 +151,7 @@ Below are links to the tasks (micro-projects) completed throughout the course:
     - [Introduction to Task 4](task4/intro.md)
     - [Docker installation and setup](task4/docker.md)
     - [Building the project](task4/build.md)
-    - [Code documentation](task4/code_overview.md)
+    - [Code overview](task4/code_overview.md)
     - [Sampling and Data I/O](task4/sampling.md)
     - [Trapezoidal and Simpson integration methods](task4/integration.md)
     - [Romberg integration method](task4/romberg.md)
@@ -159,6 +159,9 @@ Below are links to the tasks (micro-projects) completed throughout the course:
     - [Results and discussion](task4/results.md)
 - **Task 5:**
     - [Introduction to Task 5](task5/intro.md)
+    - [Docker installation and setup](task5/docker.md)
+    - [Building the project](task5/build.md)
+    - [Code overview](task5/code_overview.md)
 - **Task 6:**
     - [Introduction to Task 6](task6/intro.md)
 - **Task 7:**

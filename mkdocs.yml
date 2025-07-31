@@ -36,6 +36,16 @@ nav:
       - "Results and discussion": task4/results.md
   - Task 5:
     - "Introduction to Task 5": task5/intro.md
+    - "Docker installation and setup": task5/docker.md
+    - "Building the project": task5/build.md
+    - "Task 5a: summation methods":
+      - "Code overview": task5/summation_overview.md
+      - "Naive and GSL summation methods": task5/for_gsl_summator.md
+      - "Pairwise summation method": task5/pairwise_summator.md
+      - "Kahan summation method": task5/kahan_summator.md
+      - "Neumaier summation method": task5/neumaier_summator.md
+    - "Task 5b: daxpy with random vectors":
+      - "Code overview": task5/daxpy_overview.md
   - Task 6:
     - "Introduction to Task 6": task6/intro.md
   - Task 7:
