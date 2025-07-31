@@ -148,14 +148,14 @@ Below are links to the tasks (micro-projects) completed throughout the course:
     - [File I/O](task3/vector_io.md)
     - [Vector sum implementations](task3/vector_sum.md)
 - **Task 4:**
-  - [Introduction to Task 4](task4/intro.md)
+    - [Introduction to Task 4](task4/intro.md)
 - **Task 5:**
-  - [Introduction to Task 5](task5/intro.md)
+    - [Introduction to Task 5](task5/intro.md)
 - **Task 6:**
-  - [Introduction to Task 6](task6/intro.md)
+    - [Introduction to Task 6](task6/intro.md)
 - **Task 7:**
-  - [Introduction to Task 7](task7/intro.md)
+    - [Introduction to Task 7](task7/intro.md)
 - **Task 8:**
-  - [Introduction to Task 8](task8/intro.md)
+    - [Introduction to Task 8](task8/intro.md)
 - **Task 9:**
-  - [Introduction to Task 9](task9/intro.md)
+    - [Introduction to Task 9](task9/intro.md)
