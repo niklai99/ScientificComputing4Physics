@@ -6,7 +6,7 @@ This page describes the Pairwise summation strategy, which reduces rounding erro
 
 Pairwise summation works by dividing the input array into two halves, summing each half separately, and then adding the two partial sums. By pairing numbers of comparable magnitude, the method limits the error growth that occurs when small values are added to a large accumulator.
 
-```cpp
+```cpp linenums="1" title="PairwiseSummator.hpp"
 class PairwiseSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {

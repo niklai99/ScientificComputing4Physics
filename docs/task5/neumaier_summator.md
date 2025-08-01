@@ -6,7 +6,7 @@ This page describes the Neumaier summation algorithm, an extension of Kahan’s 
 
 While Kahan Summation compensates for lost low-order bits, it can still mis-handle cases where a very large term follows a smaller running total. Neumaier’s algorithm adds logic to adjust the compensation when the new term is larger in magnitude than the current sum.
 
-```cpp
+```cpp linenums="1" title="NeumaierSummator.hpp"
 class NeumaierSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {

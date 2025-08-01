@@ -12,7 +12,7 @@ $$
 
 by summing the areas of trapezoids under the curve. In `Integrator::integrateTrapz()`:
 
-```cpp
+```cpp linenums="1" title="Integrator.hpp"
 // Trapezoidal rule integration.
 double integrateTrapz(double a, double b, int n) const {
     if (n < 2) {
@@ -33,7 +33,7 @@ double integrateTrapz(double a, double b, int n) const {
 
 Simpson’s rule provides a more accurate approximation by using parabolic segments. It requires an odd number of sampling points. In `Integrator::integrateSimpson()`:
 
-```cpp
+```cpp linenums="1" title="Integrator.hpp"
 // Simpson's rule integration.
 double integrateSimpson(double a, double b, int n) const {
     // Ensure at least 3 points (n odd).

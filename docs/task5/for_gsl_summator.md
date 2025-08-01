@@ -6,7 +6,7 @@ This page documents the two simplest summation strategies: the naive for‑loop 
 
 The straightforward approach accumulates values in the order given. While easy to implement, it is vulnerable to catastrophic cancellation when summing very large and very small magnitudes in sequence.
 
-```cpp
+```cpp linenums="1" title="ForLoopSummator.hpp"
 class ForLoopSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {
@@ -31,7 +31,7 @@ the accumulator becomes `1.0`. Then, adding `1.0e16` results in `1.0e16`, which 
 
 To leverage existing library routines, this class wraps the GNU Scientific Library (GSL) summation function. However, `gsl_vector_sum` internally performs a naive loop, so numerical behavior mirrors the basic approach.
 
-```cpp
+```cpp linenums="1" title="GSLSummator.hpp"
 #include <gsl/gsl_vector.h>
 
 class GSLSummator : public Summator {

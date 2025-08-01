@@ -24,7 +24,7 @@ for $j=1,2,\ldots,k$.
 
 The implementation in `Integrator::integrateRomberg()` constructs the Romberg table and performs extrapolation:
 
-```cpp
+```cpp linenums="1" title="Integrator.hpp"
 // Romberg integration to desired depth 'm'.
 double integrateRomberg(double a, double b, int maxIter = 5, double tol = 1e-12) const {
     // Allocate a Romberg table R with dimensions maxIter x maxIter.

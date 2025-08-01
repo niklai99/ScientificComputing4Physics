@@ -18,7 +18,7 @@ Five concrete strategies implement this interface:
 
 A straightforward loop that accumulates each element in order:
 
-```cpp
+```cpp linenums="1" title="ForLoopSummator.hpp"
 class ForLoopSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {
@@ -37,7 +37,7 @@ This approach suffers from catastrophic cancellation when a very large value ove
 
 Delegates to the GNU Scientific Library’s `gsl_vector_sum` on a `gsl_vector` wrapper. It behaves like the naive loop under the hood and exhibits the same numerical issues.
 
-```cpp
+```cpp linenums="1" title="GSLSummator.hpp"
 class GSLSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {
@@ -57,7 +57,7 @@ public:
 
 Recursively splits the array in half, sums each half, then adds the two partial sums. This reduces error growth by grouping similar‑magnitude terms:
 
-```cpp
+```cpp linenums="1" title="PairwiseSummator.hpp"
 class PairwiseSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {
@@ -85,7 +85,7 @@ private:
 
 Implements the Kahan compensated summation algorithm, maintaining a separate compensation `c` to capture lost low‑order bits:
 
-```cpp
+```cpp linenums="1" title="KahanSummator.hpp"
 class KahanSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {
@@ -106,7 +106,7 @@ public:
 
 An improved Kahan variant that handles the case where the new term has larger magnitude than the running sum:
 
-```cpp
+```cpp linenums="1" title="NeumaierSummator.hpp"
 class NeumaierSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {

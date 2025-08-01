@@ -40,7 +40,7 @@ class CosExpFunction : public Function {
 
 Once an instance is created:
 
-```cpp
+```cpp title="computeIntegral.cpp"
 std::ofstream outFile = openOutputFile(DATA_FILE);
 CosExpFunction f;
 double dx = (params.x_sup - params.x_inf) / (params.N - 1);

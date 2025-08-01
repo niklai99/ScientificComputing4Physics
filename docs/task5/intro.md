@@ -87,8 +87,8 @@ project/                 # Project root directory
 │   ├── buildProject.sh          # Script to build the project from scratch
 │   └── destroyProject.sh        # Script to completely clean the project
 ├── src/                     # Source code files
-│   ├── computeSum.cpp      # Code to compute the sum using the five methods
-│   ├── testDaxpy.cpp        # Code to test the DAXPY operation with random vectors
+│   ├── computeSum.cpp           # Code to compute the sum using the five methods
+│   ├── testDaxpy.cpp            # Code to test the DAXPY operation with random vectors
 ├── CMakeLists.txt           # CMake build configuration file
 └── README.md                # Project documentation
 ```

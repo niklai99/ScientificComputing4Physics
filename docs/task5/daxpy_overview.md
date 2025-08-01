@@ -12,7 +12,7 @@ where both `x` and `y` are filled with independently drawn Gaussian (normal) ran
 
 Random vectors `x` and `y` of length `n` are produced by `VectorGenerator.hpp`. The generator uses the C++11 `<random>` library. A simplified excerpt from `VectorGenerator.hpp` shows the core approach:
 
-```cpp
+```cpp linenums="1" title="VectorGenerator.hpp"
 class VectorGenerator {
 public:
     /**
@@ -49,7 +49,7 @@ We use the existing Strategy Pattern from Task 3. Both implementations derive 
 
 The file `TestSuite.hpp` provides a template function `run_vector_sum_test` that executes a sequence of DAXPY operations and collects statistics. A representative snippet from `testDaxpy.cpp` illustrates its use:
 
-```cpp
+```cpp 
 int main(int argc, char** argv) {
     // Parse command-line: n, a, n_iter
     int n      = 1000000;

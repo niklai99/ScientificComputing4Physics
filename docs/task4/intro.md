@@ -116,7 +116,7 @@ project/                 # Project root directory
 │   ├── Function.hpp             # Declaration of the function to integrate
 │   ├── Integrator.hpp           # Abstract interface for integration methods
 ├── python/                  # Python scripts
-│   ├── compute_integral.py          # Python script for computing and validating integrals
+│   ├── compute_integral.py      # Python script for computing and validating integrals
 ├── scripts/                 # Helper scripts
 │   ├── buildProject.sh          # Script to build the project from scratch
 │   └── destroyProject.sh        # Script to completely clean the project

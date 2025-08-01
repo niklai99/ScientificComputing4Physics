@@ -6,7 +6,7 @@ This page explains the Kahan summation algorithm, which greatly reduces rounding
 
 When adding a small value to a large accumulator, the small value’s low-order bits can be lost due to finite precision. Kahan’s method maintains an extra variable `c` that tracks this lost error and reintroduces it in subsequent additions.
 
-```cpp
+```cpp linenums="1" title="KahanSummator.hpp"
 class KahanSummator : public Summator {
 public:
     double sum(const std::vector<double>& vec) const override {

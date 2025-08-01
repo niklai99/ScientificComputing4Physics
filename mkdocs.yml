@@ -48,13 +48,25 @@ nav:
       - "Code overview": task5/daxpy_overview.md
   - Task 6:
     - "Introduction to Task 6": task6/intro.md
+    - "Docker installation and setup": task6/docker.md
+    - "Building the project": task6/build.md
+    - "Code documentation":
+      - "Code overview": task6/code_overview.md
+      - "Complex-to-complex FFT implementation": task6/c2c.md
+      - "Real-to-complex FFT implementation": task6/r2c.md
+      - "Reconstructing the full complex matrix from the half-spectrum": task6/bonus.md
   - Task 7:
     - "Introduction to Task 7": task7/intro.md
+    - "Docker installation and setup": task7/docker.md
+    - "Building the project": task7/build.md
   - Task 8:
     - "Introduction to Task 8": task8/intro.md
+    - "Docker installation and setup": task8/docker.md
+    - "Building the project": task8/build.md
   - Task 9:
     - "Introduction to Task 9": task9/intro.md
-    
+    - "Docker installation and setup": task9/docker.md
+    - "Building the project": task9/build.md
 
 theme:
   name: material
