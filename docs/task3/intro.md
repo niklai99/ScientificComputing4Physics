@@ -1,4 +1,4 @@
-# Introduction
+# Introduction to Task 3
 
 Task 3 demonstrates a more complete and practical implementation of basic software and project design. It is designed both as a learning tool and as a practical framework that integrates multiple components into one cohesive system.
 
