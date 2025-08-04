@@ -109,7 +109,7 @@ project/                 # Project root directory
 │   └── Dockerfile.alma9          # Dockerfile for building the project
 ├── include/                 # Header files
 │   ├── vector_sum.hpp            # Declaration of the vector_sum function
-│   ├── vector_sum_chunked.hpp     # Declaration of the vector_sum_chunked function
+│   ├── vector_sum_chunked.hpp    # Declaration of the vector_sum_chunked function
 ├── scripts/                 # Helper scripts
 │   ├── buildProject.sh           # Script to build the project from scratch
 │   └── destroyProject.sh         # Script to completely clean the project

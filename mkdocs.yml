@@ -70,6 +70,8 @@ nav:
     - "Introduction to Task 9": task9/intro.md
     - "Docker installation and setup": task9/docker.md
     - "Building the project": task9/build.md
+    - "Code documentation":
+      - "Code overview": task9/code_overview.md
 
 theme:
   name: material
