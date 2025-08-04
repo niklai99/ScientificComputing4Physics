@@ -8,15 +8,78 @@ hide:
 
 This page serves as a central hub for all homework assignments (tasks) given throughout the course. Each task can be accessed from the **[Task Section](#homework--task-overview)** below, or from the navigation bar at the top-left of the webpage, beneath the course title. Within each task, you will find multiple pages dedicated to different sub-tasks.
 
+## Homework / Task Overview <a name="homework--task-overview"></a>
 
-## Contact Information
+Below are links to the tasks (micro-projects) completed throughout the course:
+
+- **Task 1:** 
+    - [Docker Installation and AlmaLinux9 setup](task1/install_docker.md)  
+    - [AlmaLinux9 setup for Python and C/C++ development](task1/custom_docker.md)  
+    - [Testing the AlmaLinux9 container with Python and C++ code](task1/test_py_cpp.md)
+- **Task 2:** 
+    - [Introduction to Task 2](task2/intro.md)
+    - [Vector Sum](task2/vector_sum.md)
+    - [Matrix Multiplication](task2/matrix_mult.md)
+    - [Questions Regarding Task 2](task2/questions.md)
+- **Task 3:**
+    - [Introduction to Task 3](task3/intro.md)
+    - [Docker installation and setup](task3/docker.md)
+    - [Building the project](task3/build.md)
+    - [Code overview](task3/code_overview.md)
+        - [File I/O](task3/vector_io.md)
+        - [Vector sum implementations](task3/vector_sum.md)
+- **Task 4:**
+    - [Introduction to Task 4](task4/intro.md)
+    - [Docker installation and setup](task4/docker.md)
+    - [Building the project](task4/build.md)
+    - [Code overview](task4/code_overview.md)
+        - [Sampling and Data I/O](task4/sampling.md)
+        - [Trapezoidal and Simpson integration methods](task4/integration.md)
+        - [Romberg integration method](task4/romberg.md)
+        - [Comparison with Python](task4/python.md)
+        - [Results and discussion](task4/results.md)
+- **Task 5:**
+    - [Introduction to Task 5](task5/intro.md)
+    - [Docker installation and setup](task5/docker.md)
+    - [Building the project](task5/build.md)
+    - [Task 5a: summation methods](task5/summation_overview.md)
+        - [Naive and GSL summation methods](task5/for_gsl_summator.md)
+        - [Pairwise summation method](task5/pairwise_summator.md)
+        - [Kahan summation method](task5/kahan_summator.md)
+        - [Neumaier summation method](task5/neumaier_summator.md)
+    - [Task 5b: daxpy with random vectors](task5/daxpy_overview.md)
+- **Task 6:**
+    - [Introduction to Task 6](task6/intro.md)
+    - [Docker installation and setup](task6/docker.md)
+    - [Building the project](task6/build.md)
+    - [Code overview](task6/code_overview.md)
+        - [C2C FFT implementation](task6/c2c.md)
+        - [R2C FFT implementation](task6/r2c.md)
+        - [Full spectrum reconstruction using Hermitian symmetry](task6/bonus.md)
+- **Task 7:**
+    - [Introduction to Task 7](task7/intro.md)
+    - [Docker installation and setup](task7/docker.md)
+    - [Building the project](task7/build.md)
+- **Task 8:**
+    - [Introduction to Task 8](task8/intro.md)
+    - [Docker installation and setup](task8/docker.md)
+    - [Building the project](task8/build.md)
+    - [Code documentation](task8/code_overview.md)
+- **Task 9:**
+    - [Introduction to Task 9](task9/intro.md)
+    - [Docker installation and setup](task9/docker.md)
+    - [Building the project](task9/build.md)
+    - [Code documentation](task9/code_overview.md)
+
+
+<!-- ## Contact Information
 
 - **Teacher:** Prof. Alessandro Renzi
     - **Email:** alessandro.renzi@unipd.it
 
 - **Student Contact (author of this document):**
     - **Name:** Nicolò Lai  
-    - **Email:** nicolo.lai@phd.unipd.it
+    - **Email:** nicolo.lai@phd.unipd.it -->
 
 
 ## Syllabus
@@ -127,51 +190,4 @@ Coding forms the core of scientific computing, embodying a dual nature: one deep
 
 ---
 
-## Homework / Task Overview <a name="homework--task-overview"></a>
 
-Below are links to the tasks (micro-projects) completed throughout the course:
-
-- **Task 1:** 
-    - [Docker Installation and AlmaLinux9 setup](task1/install_docker.md)  
-    - [AlmaLinux9 setup for Python and C/C++ development](task1/custom_docker.md)  
-    - [Testing the AlmaLinux9 container with Python and C++ code](task1/test_py_cpp.md)
-- **Task 2:** 
-    - [Introduction to Task 2](task2/intro.md)
-    - [Vector Sum](task2/vector_sum.md)
-    - [Matrix Multiplication](task2/matrix_mult.md)
-    - [Questions Regarding Task 2](task2/questions.md)
-- **Task 3:**
-    - [Introduction to Task 3](task3/intro.md)
-    - [Docker installation and setup](task3/docker.md)
-    - [Building the project](task3/build.md)
-    - [Code overview](task3/code_overview.md)
-        - [File I/O](task3/vector_io.md)
-        - [Vector sum implementations](task3/vector_sum.md)
-- **Task 4:**
-    - [Introduction to Task 4](task4/intro.md)
-    - [Docker installation and setup](task4/docker.md)
-    - [Building the project](task4/build.md)
-    - [Code overview](task4/code_overview.md)
-        - [Sampling and Data I/O](task4/sampling.md)
-        - [Trapezoidal and Simpson integration methods](task4/integration.md)
-        - [Romberg integration method](task4/romberg.md)
-        - [Comparison with Python](task4/python.md)
-        - [Results and discussion](task4/results.md)
-- **Task 5:**
-    - [Introduction to Task 5](task5/intro.md)
-    - [Docker installation and setup](task5/docker.md)
-    - [Building the project](task5/build.md)
-    - [Task 5a: summation methods](task5/summation_overview.md)
-        - [Naive and GSL summation methods](task5/for_gsl_summator.md)
-        - [Pairwise summation method](task5/pairwise_summator.md)
-        - [Kahan summation method](task5/kahan_summator.md)
-        - [Neumaier summation method](task5/neumaier_summator.md)
-    - [Task 5b: daxpy with random vectors](task5/daxpy_overview.md)
-- **Task 6:**
-    - [Introduction to Task 6](task6/intro.md)
-- **Task 7:**
-    - [Introduction to Task 7](task7/intro.md)
-- **Task 8:**
-    - [Introduction to Task 8](task8/intro.md)
-- **Task 9:**
-    - [Introduction to Task 9](task9/intro.md)
