@@ -28,10 +28,10 @@ inline void vector_sum_mpi(double a,
     }
 
     // split n roughly evenly
-    std::size_t base = n / size;
-    std::size_t rem  = n % size;
-    std::size_t start = rank * base + std::min<std::size_t>(rank, rem);
-    std::size_t count = base + (static_cast<std::size_t>(rank) < rem ? 1 : 0);
+    std::size_t base = n / size; // base number of elements per rank
+    std::size_t rem  = n % size; // remainder to distribute
+    std::size_t start = rank * base + std::min<std::size_t>(rank, rem); // start index for this rank
+    std::size_t count = base + (static_cast<std::size_t>(rank) < rem ? 1 : 0); // number of elements for this rank
 
 
     // local piece
@@ -41,10 +41,10 @@ inline void vector_sum_mpi(double a,
     }
 
     // prepare for gather
-    std::vector<int> counts(size), displs(size);
+    std::vector<int> counts(size), displs(size); // counts and displacements for gather
     for (int r = 0; r < size; ++r) {
-        counts[r] = (n / size) + (r < (int)rem ? 1 : 0);
-        displs[r] = r * (n / size) + std::min(r, (int)rem);
+        counts[r] = (n / size) + (r < (int)rem ? 1 : 0); // each rank gets base + 1 if it is in the first rem ranks
+        displs[r] = r * (n / size) + std::min(r, (int)rem); // displacement for each rank
     }
 
     if (rank == 0) d.resize(n);
