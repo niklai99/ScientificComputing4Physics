@@ -63,6 +63,9 @@ nav:
     - "Introduction to Task 8": task8/intro.md
     - "Docker installation and setup": task8/docker.md
     - "Building the project": task8/build.md
+    - "Code documentation":
+      - "Code overview": task8/code_overview.md
+
   - Task 9:
     - "Introduction to Task 9": task9/intro.md
     - "Docker installation and setup": task9/docker.md

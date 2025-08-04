@@ -1,4 +1,4 @@
-# Task 6 Build and Run Guide
+# Task 8 Build and Run Guide
 
 ## How to Build the Project
 

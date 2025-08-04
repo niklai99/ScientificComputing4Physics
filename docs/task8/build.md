@@ -34,24 +34,8 @@ Assuming you already have the project available locally and your Docker containe
 
     You can now run the executables using the `run` command from anywhere. For example:
 
-    - **Compute the sum of elements in a vector using different methods:**
+    - **Compare standard daxpy with chunked daxpy:**
 
         ```bash
-        run computeSum
+        run test_vector_sum
         ```
-
-    - **Perform daxpy operation (d=a*x + y) with random vectors:**
-
-        ```bash
-        run testDaxpy
-        ```
-
-        or, to override default parameters:
-
-        ```bash
-        run testDaxpy <N> <a> <n_iter>
-        ```
-
-
-
-    More details on properly using the executables are provided in the subsequent sections of this documentation. 
