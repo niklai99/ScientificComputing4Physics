@@ -69,3 +69,47 @@ try {
 assert(thrown);
 ```
 
+
+## What you will find in this repository
+
+- **Header Files (`include/`):**  
+    Provides declarations for the `vector_sum` function.
+
+- **Test Files (`test/`):**  
+    Contains unit tests for the `vector_sum` function.
+
+- **Helper Scripts (`scripts/`):**  
+    - `buildProject.sh`: A script to build the project from scratch.
+    - `destroyProject.sh`: A script to completely clean the project, removing build artifacts and installed commands.
+
+- **Docker Environment (`docker/`):**  
+    A Dockerfile (e.g., `Dockerfile.alma9`) is included to provide a ready-to-use development environment with all required dependencies.
+
+- **Run Script Template (`commands/run.in`):**  
+    This template is used to generate a wrapper script that is installed to `/usr/local/bin` for easy invocation of project executables.
+
+- **`CMakeLists.txt`:**  
+    The CMake build configuration file for the project.
+
+
+### Project Structure
+
+The project directory structure is as follows:
+
+```plaintext
+project/                 # Project root directory
+│ 
+├── commands/                # Contains the run script template
+│   └── run.in                    # Script to run executables with the correct environment
+├── docker/                  # Docker build context
+│   └── Dockerfile.alma9          # Dockerfile for building the project
+├── include/                 # Header files
+│   ├── vector_sum.hpp            # Declaration of the vector_sum function
+├── scripts/                 # Helper scripts
+│   ├── buildProject.sh           # Script to build the project from scratch
+│   └── destroyProject.sh         # Script to completely clean the project
+├── test/                    # Unit tests
+│   ├── test_vector_sum.cpp       # Tests for the vector_sum function
+├── CMakeLists.txt           # CMake build configuration file
+└── README.md                # Project documentation  
+```
